@@ -17,9 +17,9 @@ import peakTablet from '@/assets/portfolio/PeakTablet.png';
 import theSilence from '@/assets/portfolio/TheSilence.jpg';
 import trainIllustration from '@/assets/portfolio/TrainIllustration.jpg';
 import wacomSketch from '@/assets/portfolio/WacomSketch.jpg';
-import gotApp from '@/assets/portfolio/GotApp.png';
-import plastic from '@/assets/portfolio/Plastic.png';
-import maskACrime from '@/assets/portfolio/MaskACrime.png';
+import gotApp from '@/assets/portfolio/GotApp.webp';
+import plastic from '@/assets/portfolio/Plastic.webp';
+import maskACrime from '@/assets/portfolio/MaskACrime.webp';
 
 export interface ProjectDetail {
   problem: string;

@@ -174,7 +174,7 @@ const ProjectCardBody: React.FC<ProjectCardBodyProps> = ({ project, index, onOpe
               ))}
             </div>
             {project.metricsSource && (
-              <p className="mt-4 font-body text-xs font-light leading-snug text-white/40">
+              <p className="mt-4 font-body text-xs font-light leading-snug text-white/55">
                 {en ? project.metricsSource : project.metricsSourceEs}
               </p>
             )}

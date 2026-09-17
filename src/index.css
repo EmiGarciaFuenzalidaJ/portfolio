@@ -70,6 +70,36 @@
     background: rgba(137, 170, 204, 0.4);
     color: #ffffff;
   }
+
+  /*
+   * Keyboard focus. Every interactive element on the landing page gets a
+   * visible ring: focus-visible was declared exactly once across nineteen
+   * components, so anyone navigating by keyboard had no idea where they were.
+   * :focus-visible only fires for keyboard interaction, so pointer users see
+   * nothing change.
+   */
+  :where(a, button, [role='button'], input, textarea, select, summary,
+         [tabindex]:not([tabindex='-1'])):focus-visible {
+    outline: 2px solid #89AACC;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /*
+   * Motion. Framer components check useReducedMotion, but CSS animations,
+   * transitions and scroll behaviour do not — this covers what JavaScript
+   * cannot reach.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer components {

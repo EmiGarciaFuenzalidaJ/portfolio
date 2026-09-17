@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { T, STAGGER } from './motion';
 
 interface BlurTextProps {
   text: string;
@@ -37,7 +38,7 @@ export const BlurText: React.FC<BlurTextProps> = ({ text, className, delay = 0, 
                 : { filter: 'blur(0px)', opacity: 1, y: 0 }
               : undefined
           }
-          transition={{ duration: 0.7, delay: delay + i * 0.1, ease: 'easeOut' }}
+          transition={{ ...T.base, delay: delay + i * STAGGER.base }}
         >
           {word}
         </motion.span>

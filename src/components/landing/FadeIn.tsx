@@ -1,7 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import type { ReactNode } from 'react';
-
-const EASE: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
+import { DUR, EASE } from './motion';
 
 interface FadeInProps {
   children: ReactNode;
@@ -20,7 +19,7 @@ export const FadeIn: React.FC<FadeInProps> = ({
   children,
   className,
   delay = 0,
-  duration = 0.7,
+  duration = DUR.base,
   x = 0,
   y = 30,
   as = 'div',
@@ -34,7 +33,7 @@ export const FadeIn: React.FC<FadeInProps> = ({
       initial={reduce ? { opacity: 0 } : { opacity: 0, x, y }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
       viewport={{ once: true, margin: '50px', amount: 0 }}
-      transition={{ duration, delay, ease: EASE }}
+      transition={{ duration, delay, ease: EASE.out }}
     >
       {children}
     </MotionTag>

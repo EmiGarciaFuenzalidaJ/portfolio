@@ -5,6 +5,7 @@ import { ContactButton } from './Buttons';
 import { BlurText } from './BlurText';
 import { SocialLinks } from './SocialLinks';
 import { EasterEgg } from './EasterEgg';
+import { T } from './motion';
 
 const BASE_IMAGE =
   'https://res.cloudinary.com/drkpykb3l/image/upload/v1784206503/magnific_necesito-que-saques-el-ci_kLFpV3O16B_1_txhw7u.png';
@@ -17,8 +18,6 @@ const STOPS =
 
 const maskAt = (x: number, y: number) =>
   `radial-gradient(circle ${RADIUS}px at ${x}px ${y}px, ${STOPS})`;
-
-const EASE: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
 /**
  * Full-viewport hero with an interactive spotlight: the mouse reveals the top
@@ -86,7 +85,7 @@ export const HeroSpotlight: React.FC = () => {
         className="absolute bottom-0 left-0 right-0 z-10 flex justify-center pointer-events-none"
         initial={reduce ? { opacity: 0 } : { opacity: 0, y: 150 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1.1, ease: EASE }}
+        transition={{ ...T.slow, delay: 1.1 }}
       >
         <span className="font-black uppercase leading-none tracking-tighter text-[#161616] text-[22vw] select-none">
           DESIGN
@@ -123,7 +122,7 @@ export const HeroSpotlight: React.FC = () => {
         className="pointer-events-none absolute left-5 top-20 sm:left-8 sm:top-24 z-[25]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1, ease: EASE }}
+        transition={{ ...T.base, delay: 1 }}
       >
         <span className="liquid-glass inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-label uppercase tracking-[0.2em] text-white/90">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#89AACC]" />
@@ -157,7 +156,7 @@ export const HeroSpotlight: React.FC = () => {
           className="mt-auto flex w-full items-end justify-between pb-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.8, ease: EASE }}
+          transition={{ ...T.base, delay: 0.8 }}
         >
           <div className="flex flex-col gap-3 sm:gap-4">
             <p

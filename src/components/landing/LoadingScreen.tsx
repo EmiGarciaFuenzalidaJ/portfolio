@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { onFramesProgress, preloadFrames } from './frames';
+import { T } from './motion';
 
 const WORDS = ['Design', 'Create', 'Inspire'];
 const MIN_TIME_MS = 2400; // minimum showtime so the intro reads
@@ -84,7 +85,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
     <motion.div
       className="fixed inset-0 z-[9999] bg-black"
       animate={exiting ? { opacity: 0 } : { opacity: 1 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
+      transition={T.base}
       aria-hidden="true"
     >
       {/* Top-left label */}
@@ -92,7 +93,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
         className="absolute left-6 top-6 md:left-10 md:top-8 text-xs uppercase tracking-[0.3em] text-white/55"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
+        transition={T.base}
       >
         Portfolio
       </motion.p>
@@ -106,7 +107,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.35, ease: 'easeOut' }}
+            transition={T.fast}
           >
             {WORDS[wordIndex]}
           </motion.span>

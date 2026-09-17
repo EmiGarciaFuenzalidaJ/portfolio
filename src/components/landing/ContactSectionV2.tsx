@@ -104,7 +104,7 @@ export const ContactSectionV2: React.FC = () => {
 
           {/* Footer bar */}
           <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 sm:flex-row">
-            <p className="font-body text-xs font-light text-white/40">
+            <p className="font-body text-xs font-light text-white/55">
               © {new Date().getFullYear()} Emiliano García Fuenzalida. All rights reserved.
             </p>
             <p className="inline-flex items-center gap-2 font-body text-xs font-light uppercase tracking-widest text-white/60">

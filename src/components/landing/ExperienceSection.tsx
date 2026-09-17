@@ -56,7 +56,7 @@ const CaseDetail: React.FC<{ projectId: string }> = ({ projectId }) => {
         ))}
       </ul>
       {project.metricsSource && (
-        <p className="mt-2 font-body text-[0.7rem] font-light leading-snug text-white/35">
+        <p className="mt-2 font-body text-[0.7rem] font-light leading-snug text-white/55">
           {en ? project.metricsSource : project.metricsSourceEs}
         </p>
       )}
@@ -97,7 +97,7 @@ const Row: React.FC<{ item: ResumeItemData; index: number }> = ({ item, index })
                       href={project.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-white/40 transition-colors hover:text-white"
+                      className="text-white/55 transition-colors hover:text-white"
                       aria-label={project.title}
                     >
                       <ExternalLink className="h-3.5 w-3.5" />

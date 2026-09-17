@@ -8,12 +8,12 @@ import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 // Course images
 import dataVisualization from '@/assets/courses/DataVisualization.jpg';
 import disenoDePersonajes from '@/assets/courses/DisenoDePersonajes.jpg';
-import graphicDesignEssentials from '@/assets/courses/GraphicDesignEssentials.jpg';
+import graphicDesignEssentials from '@/assets/courses/GraphicDesignEssentials.webp';
 import htmlYCss from '@/assets/courses/HTMLyCSS.jpg';
-import canvaEssentials from '@/assets/courses/CanvaEssentials.jpg';
-import humanCentredDesign from '@/assets/courses/HumanCentredDesign.png';
+import canvaEssentials from '@/assets/courses/CanvaEssentials.webp';
+import humanCentredDesign from '@/assets/courses/HumanCentredDesign.webp';
 import masterUnity from '@/assets/courses/MasterUnity.jpg';
-import programacionFullStack from '@/assets/courses/ProgramacionFullStack.jpg';
+import programacionFullStack from '@/assets/courses/ProgramacionFullStack.webp';
 import scrum from '@/assets/courses/Scrum.jpg';
 import unityEssentials from '@/assets/courses/UnityEssentials.jpg';
 import unityJunior from '@/assets/courses/UnityJunior.jpg';
@@ -21,11 +21,11 @@ import unityVR from '@/assets/courses/UnityVRDevelopment.jpg';
 import universidadMendoza from '@/assets/courses/UniversidadDeMendoza.jpg';
 import universidadFront from '@/assets/courses/UniversidadFront.png';
 import uxui from '@/assets/courses/UXUI.jpg';
-import uxgc from '@/assets/courses/UXGC.jpg';
-import googlePrompting from '@/assets/courses/GooglePrompting.png';
-import googleUX from '@/assets/courses/GoogleUX.png';
+import uxgc from '@/assets/courses/UXGC.webp';
+import googlePrompting from '@/assets/courses/GooglePrompting.webp';
+import googleUX from '@/assets/courses/GoogleUX.webp';
 import claudeCode101 from '@/assets/courses/ClaudeCode101.jpg';
-import googleProjectManagement from '@/assets/courses/GoogleProjectManagement.png';
+import googleProjectManagement from '@/assets/courses/GoogleProjectManagement.webp';
 
 interface Course {
   title: string;

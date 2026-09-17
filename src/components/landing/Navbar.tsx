@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
 import profileImage from '@/assets/Profile.jpeg';
+import { T } from './motion';
 
 const navItems = [
   { key: 'nav.services', href: '#services' },
@@ -29,7 +30,7 @@ export const Navbar: React.FC = () => {
       >
         EN
       </button>
-      <span className="text-white/30">/</span>
+      <span aria-hidden="true" className="text-white/45">/</span>
       <button
         onClick={() => setLanguage('es')}
         className={cn(
@@ -41,14 +42,15 @@ export const Navbar: React.FC = () => {
       </button>
     </div>
   );
+  const reduce = useReducedMotion();
 
   return (
     <>
       <motion.nav
         className="pointer-events-none fixed top-4 left-0 right-0 z-50 flex justify-center px-4"
-        initial={{ opacity: 0, y: -20 }}
+        initial={reduce ? { opacity: 0 } : { opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
+        transition={{ ...T.base, delay: 0.2 }}
       >
         <div className="liquid-glass pointer-events-auto inline-flex items-center rounded-full px-2.5 py-2.5 backdrop-blur-md">
           {/* Logo */}

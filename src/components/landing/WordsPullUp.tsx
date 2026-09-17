@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { DUR, EASE, STAGGER } from './motion';
 
 export interface TextSegment {
   text: string;
@@ -50,7 +51,7 @@ export const WordsPullUp: React.FC<WordsPullUpProps> = ({
             className={cn('inline-block', item.className)}
             initial={reduce ? { opacity: 0 } : { opacity: 0, y: '60%' }}
             animate={inView ? { opacity: 1, y: 0 } : undefined}
-            transition={{ duration: 0.6, delay: delay + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: DUR.base, ease: EASE.outLong, delay: delay + i * STAGGER.base }}
           >
             {item.word}
           </motion.span>
