@@ -8,8 +8,16 @@ interface LanguageContextType {
   t: (key: string) => string;
 }
 
-const translations: Record<Language, Record<string, string>> = {
+// Exported so the i18n test can assert every referenced key resolves.
+export const translations: Record<Language, Record<string, string>> = {
   en: {
+    // Navbar labels. These are read as t(item.key) from an array, not as
+    // literals, so a usage scan that only looks for t('…') will not see them.
+    'nav.services': 'Services',
+    'nav.projects': 'Projects',
+    'nav.experience': 'Experience',
+    'nav.courses': 'Courses',
+    'nav.portfolio': 'Portfolio',
     // Navigation
 
     // Hero
@@ -109,6 +117,13 @@ const translations: Record<Language, Record<string, string>> = {
     'sh.toolkit.accent': 'stack',
   },
   es: {
+    // Navbar labels. These are read as t(item.key) from an array, not as
+    // literals, so a usage scan that only looks for t('…') will not see them.
+    'nav.services': 'Servicios',
+    'nav.projects': 'Proyectos',
+    'nav.experience': 'Experiencia',
+    'nav.courses': 'Cursos',
+    'nav.portfolio': 'Portfolio',
     // Navigation
 
     // Hero

@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { ContactButton } from './Buttons';
+import { Download } from 'lucide-react';
+import { ContactButton, LiveProjectButton } from './Buttons';
+import { CV_HREF } from '@/data/cv';
 import { BlurText } from './BlurText';
 import { SocialLinks } from './SocialLinks';
 import { EasterEgg } from './EasterEgg';
@@ -25,7 +27,7 @@ const maskAt = (x: number, y: number) =>
  * Touch / reduced-motion environments get a static centered spotlight.
  */
 export const HeroSpotlight: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const reduce = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const revealRef = useRef<HTMLDivElement>(null);
@@ -167,7 +169,25 @@ export const HeroSpotlight: React.FC = () => {
             </p>
             <SocialLinks size="sm" className="pointer-events-auto" />
           </div>
-          <div className="pointer-events-auto">
+          {/*
+            The CV was only reachable from the experience and contact sections,
+            both a long scroll away. A recruiter who wants the PDF wants it
+            immediately, so it sits beside the primary CTA — secondary styling,
+            so it supports the contact button rather than competing with it.
+          */}
+          <div className="pointer-events-auto flex flex-wrap items-center justify-end gap-3">
+            <LiveProjectButton
+              href={CV_HREF[language]}
+              download
+              target="_self"
+              rel=""
+              className="px-5 py-2.5 text-xs sm:px-7 sm:py-3 sm:text-sm"
+            >
+              <span className="inline-flex items-center gap-2">
+                <Download className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                {t('contact.downloadCV')}
+              </span>
+            </LiveProjectButton>
             <ContactButton>{t('landing.contactMe')}</ContactButton>
           </div>
         </motion.div>
