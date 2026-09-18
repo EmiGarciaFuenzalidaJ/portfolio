@@ -172,6 +172,14 @@ export const getExperience = (language: Lang): ResumeItemData[] => [
         : "Múltiples roles en DAIA: diseño y optimizo experiencias digitales centradas en el usuario combinando investigación, usabilidad y estética; lidero la investigación de usuarios e investigación de IA para productos internos como BADI; y trabajo como frontend developer construyendo interfaces en producción. También diseño identidades y UX conversacional para chatbots de IA, y desarrollo automatizaciones con n8n y agentes de IA para optimización de procesos de negocio.",
       projects: [
         {
+          title: language === 'en' ? "AXIA, Farmacia.AI & aegle" : "AXIA, Farmacia.AI y aegle",
+          projectId: 'daia-verticals',
+          description: language === 'en'
+            ? "Three AI backoffices — insurance, pharmacy and hospitality — built as instances of one product system rather than three products. Designed the shared architecture and both query paths: a drag-and-drop report builder for structured questions and natural language for one-off ones. Built the presentation sites end to end and the backoffice frontend alongside the team."
+            : "Tres backoffices con IA — seguros, farmacia y hotelería — construidos como instancias de un mismo sistema de producto, no como tres productos. Diseñé la arquitectura compartida y los dos caminos de consulta: un constructor de informes por arrastre para preguntas estructuradas y lenguaje natural para las sueltas. Construí las presentaciones de punta a punta y el frontend del backoffice junto al equipo.",
+          url: "https://axia.daia.com.ar/",
+        },
+        {
           title: "BADI",
           projectId: 'badi',
           description: language === 'en'
