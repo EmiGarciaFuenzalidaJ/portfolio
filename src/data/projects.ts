@@ -66,28 +66,28 @@ export const projects: Project[] = [
   {
     featured: true,
     id: 'daia-verticals',
-    title: 'AXIA, Farmacia.AI & aegle — One System, Three Verticals',
-    titleEs: 'AXIA, Farmacia.AI y aegle — Un sistema, tres verticales',
+    title: 'AXIA, Farmacia.AI, aegle & VEYRA — One System, Four Verticals',
+    titleEs: 'AXIA, Farmacia.AI, aegle y VEYRA — Un sistema, cuatro verticales',
     oneLiner:
-      'AI backoffices for insurance, pharmacy and hospitality, all instances of one product system.',
+      'AI backoffices for insurance, pharmacy, hospitality and logistics, all instances of one product system.',
     oneLinerEs:
-      'Backoffices con IA para seguros, farmacia y hotelería, todos instancias de un mismo sistema de producto.',
+      'Backoffices con IA para seguros, farmacia, hotelería y logística, todos instancias de un mismo sistema de producto.',
     category: 'B2B SaaS',
     categoryEs: 'B2B SaaS',
     problem:
-      'Operators in insurance, pharmacy and hospitality run on spreadsheets and disconnected tools. The data to answer "which product is losing us money this quarter" exists — but getting the answer means asking someone technical, so most of those questions never get asked at all.',
+      'Operators in insurance, pharmacy, hospitality and logistics run on spreadsheets and disconnected tools. The data to answer "which product is losing us money this quarter" exists — but getting the answer means asking someone technical, so most of those questions never get asked at all.',
     problemEs:
-      'Los operadores de seguros, farmacia y hotelería trabajan con planillas y herramientas desconectadas. El dato para responder "qué producto nos está haciendo perder plata este trimestre" existe — pero llegar a la respuesta implica pedírsela a alguien técnico, así que la mayoría de esas preguntas directamente no se hacen.',
+      'Los operadores de seguros, farmacia, hotelería y logística trabajan con planillas y herramientas desconectadas. El dato para responder "qué producto nos está haciendo perder plata este trimestre" existe — pero llegar a la respuesta implica pedírsela a alguien técnico, así que la mayoría de esas preguntas directamente no se hacen.',
     solution:
-      'One product system instantiated three times rather than three products: a shared architecture, sales pipeline and reporting core, with each vertical carrying its own vocabulary, brand and typography. The business data has two doors — natural language for the question you ask once, and a drag-and-drop report builder for the one you ask every month.',
+      'One product system instantiated four times rather than four products: a shared architecture, sales pipeline and reporting core, with each vertical carrying its own vocabulary, brand and typography. The business data has two doors — natural language for the question you ask once, and a drag-and-drop report builder for the one you ask every month.',
     solutionEs:
-      'Un sistema de producto instanciado tres veces, en lugar de tres productos: arquitectura, pipeline comercial y motor de informes compartidos, con cada vertical llevando su propio vocabulario, marca y tipografía. Los datos del negocio tienen dos puertas — lenguaje natural para la pregunta que hacés una vez, y un constructor de informes por arrastre para la que hacés todos los meses.',
+      'Un sistema de producto instanciado cuatro veces, en lugar de cuatro productos: arquitectura, pipeline comercial y motor de informes compartidos, con cada vertical llevando su propio vocabulario, marca y tipografía. Los datos del negocio tienen dos puertas — lenguaje natural para la pregunta que hacés una vez, y un constructor de informes por arrastre para la que hacés todos los meses.',
     insight:
       'The same data needs two doors: conversation for the question you ask once, structure for the one you ask every month.',
     insightEs:
       'Los mismos datos necesitan dos puertas: conversación para la pregunta que hacés una vez, estructura para la que hacés todos los meses.',
     metrics: [
-      { value: '3', label: 'Verticals from one system', labelEs: 'Verticales sobre un mismo sistema' },
+      { value: '4', label: 'Verticals from one system', labelEs: 'Verticales sobre un mismo sistema' },
       { value: '2', label: 'Ways into the same data', labelEs: 'Caminos hacia los mismos datos' },
       { value: '5', label: 'Pipeline stages, role-aware views', labelEs: 'Etapas de pipeline, vistas por rol' },
     ],
@@ -101,32 +101,34 @@ export const projects: Project[] = [
       'Built a drag-and-drop report builder — attributes and indicators dropped onto rows, columns and values — so an operator composes a pivot query without writing SQL',
       'Paired it with natural-language querying, because a one-off question and a monthly report are different jobs and deserve different tools',
       'Gave each role its own view of the same system, so a supervisor and an operator see the slice they need rather than the same crowded screen',
-      'Kept per-vertical typography and voice on the shared skeleton, so three products never read as one template with the words swapped',
+      'Kept per-vertical typography and voice on the shared skeleton, so four products never read as one template with the words swapped',
+      'Extended the system rather than freezing it: VEYRA, built fourth for a logistics trade show, added a voice section the earlier three did not have — proof the skeleton could grow instead of only repeating',
     ],
     decisionsEs: [
       'Diseñé un sistema instanciado por vertical en lugar de tres productos, para que un mercado nuevo sea una configuración y no una reconstrucción',
       'Construí un constructor de informes por arrastre — atributos e indicadores sobre filas, columnas y valores — para que un operador arme una consulta pivot sin escribir SQL',
       'Lo combiné con consultas en lenguaje natural, porque una pregunta suelta y un informe mensual son trabajos distintos y merecen herramientas distintas',
       'Le di a cada rol su propia vista del mismo sistema, para que un supervisor y un operador vean lo que necesitan y no la misma pantalla saturada',
-      'Mantuve tipografía y voz propias por vertical sobre el esqueleto compartido, para que tres productos nunca se lean como una plantilla con las palabras cambiadas',
+      'Mantuve tipografía y voz propias por vertical sobre el esqueleto compartido, para que cuatro productos nunca se lean como una plantilla con las palabras cambiadas',
+      'Extendí el sistema en vez de congelarlo: VEYRA, la cuarta, hecha para una muestra de logística, sumó una sección de voz que las tres anteriores no tenían — prueba de que el esqueleto podía crecer y no solo repetirse',
     ],
     url: 'https://axia.daia.com.ar/',
     steps: [
       {
-        en: 'Worked with operators across insurance, pharmacy and hospitality to map how each one actually answers a question about its own business today.',
-        es: 'Trabajé con operadores de seguros, farmacia y hotelería para mapear cómo responde hoy cada uno una pregunta sobre su propio negocio.',
+        en: 'Worked with operators across insurance, pharmacy, hospitality and logistics to map how each one actually answers a question about its own business today.',
+        es: 'Trabajé con operadores de seguros, farmacia, hotelería y logística para mapear cómo responde hoy cada uno una pregunta sobre su propio negocio.',
       },
       {
-        en: 'The three verticals differ in vocabulary, not in shape: the same entities, the same pipeline, the same reporting need. Building three products would have tripled the work and split the quality three ways.',
-        es: 'Las tres verticales se diferencian en vocabulario, no en forma: las mismas entidades, el mismo pipeline, la misma necesidad de informes. Construir tres productos habría triplicado el trabajo y partido la calidad en tres.',
+        en: 'The verticals differ in vocabulary, not in shape: the same entities, the same pipeline, the same reporting need. Building three products would have tripled the work and split the quality three ways.',
+        es: 'Las verticales se diferencian en vocabulario, no en forma: las mismas entidades, el mismo pipeline, la misma necesidad de informes. Construir tres productos habría triplicado el trabajo y partido la calidad en tres.',
       },
       {
         en: 'Designed the shared system and both query paths, then built the presentation sites end to end and the backoffice frontend alongside the team.',
         es: 'Diseñé el sistema compartido y los dos caminos de consulta, y después construí las presentaciones de punta a punta y el frontend del backoffice junto al equipo.',
       },
       {
-        en: 'Three verticals shipped with market variants on the same core, each presenting as its own product rather than a skin.',
-        es: 'Tres verticales entregadas con variantes de mercado sobre el mismo núcleo, cada una presentándose como su propio producto y no como un cambio de piel.',
+        en: 'Four verticals shipped with market variants on the same core, each presenting as its own product rather than a skin — and the fourth extended the system instead of merely reusing it.',
+        es: 'Cuatro verticales entregadas con variantes de mercado sobre el mismo núcleo, cada una presentándose como su propio producto y no como un cambio de piel — y la cuarta extendió el sistema en lugar de solo reutilizarlo.',
       },
     ],
   },
