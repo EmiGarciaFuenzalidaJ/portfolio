@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
@@ -18,6 +17,7 @@ export const CoursesSectionV2: React.FC = () => {
     <section id="courses" className={SECTION}>
       <div className={CONTAINER}>
         <SectionHeader
+          index="06"
           eyebrow={t('sh.courses.eyebrow')}
           title={t('sh.courses.title')}
           accent={t('sh.courses.accent')}
@@ -31,7 +31,7 @@ export const CoursesSectionV2: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSelected(course)}
-                className="group flex h-full w-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-[#0A0D12] text-left shadow-[0_12px_40px_rgba(0,0,0,0.4)] transition-all duration-300 hover:-translate-y-1.5 hover:border-white/25"
+                className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0A0D12] text-left transition-colors duration-300 hover:border-white/30"
               >
                 {/* Certificate preview */}
                 <span className="relative block h-56 w-full overflow-hidden bg-[#141922] sm:h-64">
@@ -65,13 +65,9 @@ export const CoursesSectionV2: React.FC = () => {
                       regardless of how many lines the title/description
                       wrap to, so "View certificate" aligns across every
                       card in a row instead of drifting with copy length. */}
-                  <span className="mt-auto flex items-center justify-between border-t border-white/10 pt-4">
-                    <span className="font-body text-sm font-medium text-white/60 transition-colors duration-300 group-hover:text-white">
-                      {t('landing.viewCertificate')}
-                    </span>
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/60 transition-all duration-300 group-hover:border-[#89AACC] group-hover:text-[#89AACC]">
-                      <ArrowUpRight className="h-4 w-4 -rotate-45 transition-transform duration-300 group-hover:rotate-0" />
-                    </span>
+                  <span className="mt-auto flex items-center justify-between border-t border-white/10 pt-4 font-mono text-label uppercase text-white/55 transition-colors duration-300 group-hover:text-white">
+                    {t('landing.viewCertificate')}
+                    <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                   </span>
                 </span>
               </button>
@@ -82,7 +78,7 @@ export const CoursesSectionV2: React.FC = () => {
 
       {/* Certificate lightbox */}
       <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
-        <DialogContent className="w-[95vw] max-w-4xl overflow-hidden rounded-[32px] border border-white/15 bg-[#101010] p-0">
+        <DialogContent className="w-[95vw] max-w-4xl overflow-hidden rounded-2xl border border-white/15 bg-[#0A0D12] p-0">
           <VisuallyHidden>
             <DialogTitle>{selected && (en ? selected.title : selected.titleEs)}</DialogTitle>
             <DialogDescription>

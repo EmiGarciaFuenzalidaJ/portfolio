@@ -19,6 +19,37 @@ export const SLOT_VH = 80;
 export const DWELL_VH = 70;
 
 /**
+ * Slot height when the cards are compact (phones, short laptops). A compact
+ * card is about a third of the screen tall; keeping the full 80vh slot made
+ * the section a very long scroll of mostly empty space. The dwell scales by
+ * the same factor, so the recede windows in `stackWindow` — which only depend
+ * on the slot/dwell ratio — stay exactly the same.
+ */
+export const COMPACT_SLOT_VH = 50;
+export const COMPACT_DWELL_VH = (DWELL_VH * COMPACT_SLOT_VH) / SLOT_VH;
+
+/**
+ * Floor for the compact slot, so the tallest compact card still fits on a
+ * short screen. The dwell gets the same floor scaled by the same ratio.
+ */
+export const COMPACT_MIN_REM = 30;
+
+/** Phones show the shortest card of all, so they get the shortest slot. */
+export const MOBILE_SLOT_VH = 42;
+export const MOBILE_MIN_REM = 24;
+
+/** Slot and dwell CSS heights for a given card mode, keeping the dwell ratio. */
+export function slotHeights(mode: 'full' | 'compact' | 'mobile') {
+  if (mode === 'full') return { slot: `${SLOT_VH}vh`, dwell: `${DWELL_VH}vh` };
+  const [vh, rem] = mode === 'mobile' ? [MOBILE_SLOT_VH, MOBILE_MIN_REM] : [COMPACT_SLOT_VH, COMPACT_MIN_REM];
+  const ratio = DWELL_VH / SLOT_VH;
+  return {
+    slot: `max(${vh}vh, ${rem}rem)`,
+    dwell: `max(${vh * ratio}vh, ${rem * ratio}rem)`,
+  };
+}
+
+/**
  * How much the whole stack shrinks from back to front. Fixing the budget
  * rather than the per-card step keeps the stack looking the same at any card
  * count — with a fixed 0.012 step, six cards shrank to 0.94 and stopped

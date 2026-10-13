@@ -48,6 +48,11 @@ function referencedKeys(): Map<string, string[]> {
   for (const file of mounted) {
     const src = fs.readFileSync(file, 'utf8');
     for (const m of src.matchAll(/\bt\(\s*'([^']+)'/g)) add(m[1], file);
+    // Keys chosen inside the call: t(kind === 'scope' ? 'landing.scope' : 'landing.impact').
+    // `landing.scope` slipped through this way and rendered as a raw key on the cards.
+    for (const call of src.matchAll(/\bt\(([^()]*)\)/g)) {
+      for (const m of call[1].matchAll(/'([a-z][a-zA-Z]*\.[a-zA-Z.]+)'/g)) add(m[1], file);
+    }
     // Arrays of nav-style items: { key: 'nav.projects', ... }
     for (const m of src.matchAll(/\bkey:\s*'([a-z][a-zA-Z]*\.[a-zA-Z.]+)'/g)) {
       add(m[1], file);

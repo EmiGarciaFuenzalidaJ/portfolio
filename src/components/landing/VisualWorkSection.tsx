@@ -32,6 +32,7 @@ export const VisualWorkSection: React.FC = () => {
     <section id="visual-work" className={SECTION}>
       <div className={CONTAINER}>
         <SectionHeader
+          index="07"
           eyebrow={t('sh.visual.eyebrow')}
           title={t('sh.visual.title')}
           accent={t('sh.visual.accent')}
@@ -46,47 +47,26 @@ export const VisualWorkSection: React.FC = () => {
                 type="button"
                 onClick={() => setSelected(item)}
                 className={cn(
-                  'group relative block w-full overflow-hidden rounded-3xl border border-white/10 bg-[#0A0D12] text-left shadow-[0_12px_40px_rgba(0,0,0,0.4)]',
-                  aspectClass(index),
-                  item.featured && 'ring-1 ring-[#89AACC]/50'
+                  'group relative block w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0A0D12] text-left transition-colors duration-300 hover:border-white/30',
+                  aspectClass(index)
                 )}
               >
-                {item.featured && (
-                  <span className="accent-gradient absolute left-3 top-3 z-20 rounded-full px-2.5 py-0.5 text-label font-semibold uppercase tracking-widest text-black">
-                    Featured
-                  </span>
-                )}
-
                 {item.image && (
                   <img
                     src={item.image}
                     alt={en ? item.title : item.titleEs}
                     loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                   />
                 )}
 
-
-                {/* Hover overlay with centered pill (desktop) */}
-                <div className="absolute inset-0 z-10 hidden items-center justify-center bg-black/70 opacity-0 backdrop-blur-lg transition-opacity duration-300 group-hover:opacity-100 md:flex">
-                  <span className="group/pill relative rounded-full">
-                    <span className="gradient-ring !opacity-100" aria-hidden="true" />
-                    <span className="relative z-10 inline-block rounded-full bg-white px-5 py-2 text-sm font-medium text-black">
-                      {t('landing.view')} — <span className="font-heading italic">{en ? item.title : item.titleEs}</span>
-                    </span>
-                  </span>
-                </div>
-
-                {/* Always-visible bottom strip on mobile */}
-                <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-4 md:hidden">
-                  <div className="mb-1 flex flex-wrap gap-1">
-                    {item.tags.slice(0, 3).map((tag) => (
-                      <span key={tag} className="rounded px-1.5 py-0.5 text-label font-medium" style={{ background: 'rgba(137,170,204,0.2)', color: ACCENT }}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="font-body text-sm font-medium text-white">{en ? item.title : item.titleEs}</p>
+                {/* Caption: always visible on touch, slides in on hover on desktop.
+                    Replaces a blurred overlay with a gradient-ringed pill. */}
+                <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 pt-10 transition-all duration-300 md:translate-y-2 md:p-5 md:pt-12 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">
+                  <p className="mb-1 font-mono text-label uppercase text-white/60">
+                    {item.tags.slice(0, 3).join(' · ')}
+                  </p>
+                  <p className="font-body text-base font-medium text-white md:text-lg">{en ? item.title : item.titleEs}</p>
                 </div>
               </button>
             </FadeIn>
@@ -96,7 +76,7 @@ export const VisualWorkSection: React.FC = () => {
 
       {/* Detail modal */}
       <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
-        <DialogContent className="h-[88vh] max-h-[88vh] w-[96vw] max-w-6xl overflow-hidden rounded-[32px] border border-white/15 bg-[#0A0D12] p-0">
+        <DialogContent className="h-[88vh] max-h-[88vh] w-[96vw] max-w-6xl overflow-hidden rounded-2xl border border-white/15 bg-[#0A0D12] p-0">
           <VisuallyHidden>
             <DialogTitle>{selected && (en ? selected.title : selected.titleEs)}</DialogTitle>
             <DialogDescription>
@@ -115,14 +95,8 @@ export const VisualWorkSection: React.FC = () => {
               </div>
 
               <div className="flex-1 overflow-y-auto p-6 sm:p-8">
-                <div className="mb-2 flex flex-wrap gap-1.5">
-                  {selected.tags.map((tag) => (
-                    <span key={tag} className="rounded-full px-2 py-0.5 text-label font-medium" style={{ background: 'rgba(137,170,204,0.15)', color: ACCENT }}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <span className="text-xs font-medium uppercase tracking-widest" style={{ color: ACCENT }}>
+                <p className="mb-2 font-mono text-label uppercase text-white/55">{selected.tags.join(' · ')}</p>
+                <span className="font-mono text-label uppercase" style={{ color: ACCENT }}>
                   {selected.category}
                 </span>
                 <h3 className="mt-1.5 font-body font-semibold text-xl leading-tight text-white sm:text-2xl">
@@ -143,7 +117,7 @@ export const VisualWorkSection: React.FC = () => {
                       ] as const
                     ).map(([labelEn, labelEs, valueEn, valueEs]) => (
                       <div key={labelEn}>
-                        <h4 className="mb-1 text-label font-medium uppercase tracking-widest" style={{ color: ACCENT }}>
+                        <h4 className="mb-1 font-mono text-label uppercase text-white/55">
                           {en ? labelEn : labelEs}
                         </h4>
                         <p className="font-body text-sm font-light leading-relaxed text-white/80">

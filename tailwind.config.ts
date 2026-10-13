@@ -19,6 +19,7 @@ export default {
         heading: ['"Instrument Serif"', 'serif'],
         display: ['"Instrument Serif"', 'serif'],
         serif: ['"Instrument Serif"', 'serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'Consolas', 'monospace'],
       },
       /**
        * Type scale for the landing page.

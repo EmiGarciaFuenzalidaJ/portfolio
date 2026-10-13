@@ -1,100 +1,144 @@
-import {
-  Bot,
-  Box,
-  BrainCircuit,
-  Boxes,
-  Code2,
-  Flag,
-  Fingerprint,
-  Gamepad2,
-  Glasses,
-  KanbanSquare,
-  Layers,
-  MousePointerClick,
-  Palette,
-  PenTool,
-  Share2,
-  Sparkles,
-  UserRound,
-  type LucideIcon,
-} from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { skillCategories } from '@/data/skills';
+import { TOOL_ICONS, type ToolIcon } from '@/data/toolIcons';
 import { FadeIn } from './FadeIn';
 import { SectionHeader } from './SectionHeader';
 import { SECTION, CONTAINER } from './layout';
+import { cn } from '@/lib/utils';
 
-// Short accent palette from the reference mockup, rotated across cards.
-const ACCENTS = ['#89AACC', '#8F7BFF', '#35D0BA'];
-const PINK = '#FF6B9D';
+const ACCENT = '#89AACC';
 
-interface ServiceCard {
+type Discipline = 'design' | 'ai' | 'build' | 'brand' | 'management';
+
+interface Service {
   /** Translation key suffix under `services.*` (already bilingual). */
   key: string;
-  icon: LucideIcon;
+  discipline: Discipline;
   tags: { en: string[]; es: string[] };
-  featured?: boolean;
 }
 
-// The user's real services; copy comes from existing services.* translation keys.
-// AI & Automation leads, highlighted — it's the differentiating capability.
-const SERVICES: ServiceCard[] = [
-  { key: 'ai', icon: Bot, featured: true, tags: { en: ['AI Chatbots', 'n8n Workflows', 'AI Agents', 'Conversational UX'], es: ['Chatbots IA', 'Workflows n8n', 'Agentes IA', 'UX Conversacional'] } },
-  { key: 'pm', icon: KanbanSquare, tags: { en: ['Agile / Scrum', 'Planning', 'Team Leadership'], es: ['Agile / Scrum', 'Planificación', 'Liderazgo'] } },
-  { key: 'uxui', icon: Palette, tags: { en: ['Figma', 'User Flows'], es: ['Figma', 'Flujos de Usuario'] } },
-  { key: 'interaction', icon: MousePointerClick, tags: { en: ['Micro-interactions', 'Motion'], es: ['Micro-interacciones', 'Motion'] } },
-  { key: 'prototype', icon: Layers, tags: { en: ['Hi-Fi Prototypes', 'Testing'], es: ['Prototipos Hi-Fi', 'Testing'] } },
-  { key: 'webdev', icon: Code2, tags: { en: ['React', 'Responsive'], es: ['React', 'Responsive'] } },
-  { key: 'gamedev', icon: Gamepad2, tags: { en: ['Unity', 'C#'], es: ['Unity', 'C#'] } },
-  { key: 'vrar', icon: Glasses, tags: { en: ['VR', 'AR', 'Simulation'], es: ['VR', 'AR', 'Simulación'] } },
-  { key: 'brand', icon: Fingerprint, tags: { en: ['Identity', 'Logos'], es: ['Identidad', 'Logos'] } },
-  { key: 'graphic', icon: PenTool, tags: { en: ['Illustration', 'Print'], es: ['Ilustración', 'Impreso'] } },
-  { key: 'social', icon: Share2, tags: { en: ['Content', 'Strategy'], es: ['Contenido', 'Estrategia'] } },
+/**
+ * Design leads — that is the job. AI comes right after it as the strongest
+ * complement, marked with the accent; everything else follows by discipline.
+ */
+const SERVICES: Service[] = [
+  { key: 'uxui', discipline: 'design', tags: { en: ['Figma', 'User Research', 'User Flows', 'Design Systems'], es: ['Figma', 'Investigación', 'Flujos de Usuario', 'Design Systems'] } },
+  { key: 'ai', discipline: 'ai', tags: { en: ['AI Chatbots', 'n8n Workflows', 'AI Agents', 'Conversational UX'], es: ['Chatbots IA', 'Workflows n8n', 'Agentes IA', 'UX Conversacional'] } },
+  { key: 'interaction', discipline: 'design', tags: { en: ['Micro-interactions', 'Motion'], es: ['Micro-interacciones', 'Motion'] } },
+  { key: 'prototype', discipline: 'design', tags: { en: ['Hi-Fi Prototypes', 'Testing'], es: ['Prototipos Hi-Fi', 'Testing'] } },
+  { key: 'pm', discipline: 'management', tags: { en: ['Agile / Scrum', 'Planning', 'Team Leadership'], es: ['Agile / Scrum', 'Planificación', 'Liderazgo'] } },
+  { key: 'webdev', discipline: 'build', tags: { en: ['React', 'Responsive'], es: ['React', 'Responsive'] } },
+  { key: 'gamedev', discipline: 'build', tags: { en: ['Unity', 'C#'], es: ['Unity', 'C#'] } },
+  { key: 'vrar', discipline: 'build', tags: { en: ['VR', 'AR', 'Simulation'], es: ['VR', 'AR', 'Simulación'] } },
+  { key: 'brand', discipline: 'brand', tags: { en: ['Identity', 'Logos'], es: ['Identidad', 'Logos'] } },
+  { key: 'graphic', discipline: 'brand', tags: { en: ['Illustration', 'Print'], es: ['Ilustración', 'Impreso'] } },
+  { key: 'social', discipline: 'brand', tags: { en: ['Content', 'Strategy'], es: ['Contenido', 'Estrategia'] } },
 ];
 
-// Toolkit: AI & Workflow leads (highlighted), then the rest as in v1.
-const TOOLKIT = [
-  ...skillCategories.filter((c) => c.title === 'AI & Workflow'),
-  ...skillCategories.filter((c) => c.title !== 'AI & Workflow'),
-];
+// Design-led order for the toolkit too.
+const ORDER = ['Product Design', 'AI & Workflow', 'Visual & Motion', 'Development', 'UX Research', 'Simulation & XR', 'Methodology'];
+const TOOLKIT = [...skillCategories].sort((a, b) => ORDER.indexOf(a.title) - ORDER.indexOf(b.title));
 
-const TOOLKIT_ICONS: Record<string, LucideIcon> = {
-  'AI & Workflow': BrainCircuit,
-  'Product Design': Box,
-  'Visual & Motion': PenTool,
-  'Development': Code2,
-  'UX Research': UserRound,
-  'Simulation & XR': Boxes,
-  'Methodology': Flag,
+/**
+ * One service card. The design lives in the card itself rather than in
+ * decoration around it: a mono header (number · discipline), the title, the
+ * description, and a footer ruled off with the tools — so every card has the
+ * same four parts in the same places and a row of cards lines up.
+ */
+const ServiceCard: React.FC<{ service: Service; index: number; lead?: boolean }> = ({ service, index, lead }) => {
+  const { t, language } = useLanguage();
+  const isAI = service.discipline === 'ai';
+  const tags = language === 'en' ? service.tags.en : service.tags.es;
+
+  return (
+    <article
+      className={cn(
+        'group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-[#0A0D12]/90 transition-colors duration-300',
+        isAI ? 'border-[#89AACC]/35 hover:border-[#89AACC]/70' : 'border-white/10 hover:border-white/30'
+      )}
+    >
+      {/* Machined top edge: a 1px highlight that brightens on hover. */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-100"
+      />
+
+      <header className="flex items-center justify-between px-6 pt-6 font-mono text-label uppercase md:px-7 md:pt-7">
+        <span className="text-white/45">{String(index + 1).padStart(2, '0')}</span>
+        <span style={{ color: isAI ? ACCENT : 'rgba(255,255,255,0.55)' }}>
+          {t(`services.cat.${service.discipline}`)}
+        </span>
+      </header>
+
+      <div className={cn('flex-1 px-6 md:px-7', lead ? 'pb-8 pt-10 md:pt-14' : 'pb-6 pt-8')}>
+        <h3
+          className={cn(
+            'font-body font-semibold leading-tight tracking-[-0.01em] text-white',
+            lead ? 'text-h2' : 'text-xl md:text-2xl'
+          )}
+        >
+          {t(`services.${service.key}`)}
+        </h3>
+        <p
+          className={cn(
+            'mt-3 font-body font-light leading-relaxed text-white/70',
+            lead ? 'max-w-xl text-lead' : 'text-sm md:text-base'
+          )}
+        >
+          {t(`services.${service.key}.desc`)}
+        </p>
+      </div>
+
+      <footer className="border-t border-white/10 px-6 py-4 font-mono text-label uppercase leading-relaxed text-white/50 md:px-7">
+        {tags.join(' · ')}
+      </footer>
+    </article>
+  );
 };
 
-/** Large icon tile with the card's accent color, mockup-style. */
-const IconSquare: React.FC<{ color: string; icon: LucideIcon }> = ({ color, icon: Icon }) => (
-  <span
-    className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl border sm:h-16 sm:w-16"
-    style={{ borderColor: `${color}55`, background: `${color}14`, color }}
-  >
-    <Icon className="h-6 w-6 sm:h-7 sm:w-7" />
-  </span>
+/** A tool tile: brand glyph or monogram, identical size and colour. */
+const ToolTile: React.FC<{ name: string; icon: ToolIcon }> = ({ name, icon }) => (
+  <li className="group/tool relative flex flex-col items-center [@media(hover:none)]:w-[5rem]">
+    <span
+      tabIndex={0}
+      aria-label={name}
+      className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white/85 transition-colors duration-200 hover:border-white/30 hover:text-white focus-visible:border-white/30"
+    >
+      {'path' in icon ? (
+        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
+          <path d={icon.path} />
+        </svg>
+      ) : (
+        // Static, first-party SVG markup from src/data/toolIcons.ts — never user input.
+        <svg
+          viewBox={`0 0 ${icon.size} ${icon.size}`}
+          className="h-5 w-5"
+          fill="currentColor"
+          aria-hidden="true"
+          dangerouslySetInnerHTML={{ __html: icon.body }}
+        />
+      )}
+    </span>
+    {/* Name on hover/focus for pointers; always shown on touch screens. */}
+    <span
+      aria-hidden="true"
+      className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md border border-white/15 bg-[#0A0D12] px-2 py-1 font-mono text-label normal-case tracking-normal text-white opacity-0 transition-opacity duration-150 group-hover/tool:opacity-100 group-focus-within/tool:opacity-100 [@media(hover:none)]:hidden"
+    >
+      {name}
+    </span>
+    <span
+      aria-hidden="true"
+      className="mt-1.5 hidden w-full text-center font-mono text-label normal-case leading-tight tracking-normal text-white/50 [@media(hover:none)]:line-clamp-2"
+    >
+      {name}
+    </span>
+  </li>
 );
 
-const Chip: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <span className="whitespace-nowrap rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 font-body text-sm font-medium text-white/90">
-    {children}
-  </span>
-);
-
-const AiBadge: React.FC = () => (
-  <span
-    className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-label font-semibold uppercase tracking-widest"
-    style={{ borderColor: '#89AACC66', color: '#89AACC', background: '#89AACC14' }}
-  >
-    <Sparkles className="h-3 w-3" />
-    AI
-  </span>
-);
-
-/** Services (AI-led) + the full technology toolkit — mockup-style accent cards. */
+/**
+ * Services as designed cards — UX/UI leading, AI beside it — then the toolkit,
+ * where tools are icon tiles and methods stay as text, kept apart.
+ */
 export const ServicesSection: React.FC = () => {
   const { t, language } = useLanguage();
   const en = language === 'en';
@@ -103,6 +147,7 @@ export const ServicesSection: React.FC = () => {
     <section id="services" className={SECTION}>
       <div className={CONTAINER}>
         <SectionHeader
+          index="01"
           eyebrow={t('sh.services.eyebrow')}
           title={t('sh.services.title')}
           accent={t('sh.services.accent')}
@@ -110,56 +155,23 @@ export const ServicesSection: React.FC = () => {
           className="mb-12 md:mb-16"
         />
 
-        {/* Services grid — AI card spans wide and carries the pink accent */}
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map((service, i) => {
-            const featured = service.featured;
-            const color = featured ? PINK : ACCENTS[i % ACCENTS.length];
-            return (
-              <FadeIn
-                key={service.key}
-                delay={Math.min((i % 3) * 0.1, 0.3)}
-                y={24}
-                className={featured ? 'md:col-span-2' : undefined}
-              >
-                <div
-                  className="relative flex h-full flex-col rounded-2xl border border-white/10 bg-[#0A0D12] p-6 shadow-[0_12px_40px_rgba(0,0,0,0.4)] transition-transform duration-300 hover:-translate-y-1"
-                  style={{ borderLeft: `2px solid ${color}` }}
-                >
-                  {featured && (
-                    <span className="absolute right-5 top-5">
-                      <AiBadge />
-                    </span>
-                  )}
-
-                  {/* Icon + title centered together; tags run full-width below
-                      so long titles (Social Media, VR/AR, ES copy) never break
-                      the layout. */}
-                  <div className="flex items-center gap-4">
-                    <IconSquare color={color} icon={service.icon} />
-                    <h3 className={`min-w-0 flex-1 font-body text-xl font-semibold leading-tight text-white md:text-2xl ${featured ? 'pr-16' : ''}`}>
-                      {t(`services.${service.key}`)}
-                    </h3>
-                  </div>
-
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {(en ? service.tags.en : service.tags.es).map((tag) => (
-                      <Chip key={tag}>{tag}</Chip>
-                    ))}
-                  </div>
-
-                  <p className="mt-3 font-body text-sm font-light leading-relaxed text-white/80 md:text-base">
-                    {t(`services.${service.key}.desc`)}
-                  </p>
-                </div>
-              </FadeIn>
-            );
-          })}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {SERVICES.map((service, i) => (
+            <FadeIn
+              key={service.key}
+              delay={Math.min((i % 3) * 0.06, 0.18)}
+              y={20}
+              className={i === 0 ? 'md:col-span-2' : undefined}
+            >
+              <ServiceCard service={service} index={i} lead={i === 0} />
+            </FadeIn>
+          ))}
         </div>
 
-        {/* Toolkit — every technology, AI & Workflow leading */}
+        {/* Toolkit — two-column index; tools as icons, methods as text */}
         <div className="mt-24 md:mt-32">
           <SectionHeader
+            index="02"
             eyebrow={t('skills.title')}
             title={t('sh.toolkit.title')}
             accent={t('sh.toolkit.accent')}
@@ -167,36 +179,30 @@ export const ServicesSection: React.FC = () => {
             className="mb-10 md:mb-14"
           />
 
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-x-12 md:grid-cols-2">
             {TOOLKIT.map((category, i) => {
-              const isAI = category.title === 'AI & Workflow';
-              const color = ACCENTS[i % ACCENTS.length];
-              const Icon = TOOLKIT_ICONS[category.title] ?? Box;
+              const tools = category.skills.filter((s) => s in TOOL_ICONS);
+              const methods = category.skills.filter((s) => !(s in TOOL_ICONS));
               return (
-                <FadeIn
-                  key={category.title}
-                  delay={Math.min((i % 2) * 0.08, 0.16)}
-                  y={20}
-                  className={i === TOOLKIT.length - 1 && TOOLKIT.length % 2 !== 0 ? 'md:col-span-2' : undefined}
-                >
-                  <div
-                    className="flex h-full gap-5 rounded-2xl border border-white/10 bg-[#0A0D12] p-6 shadow-[0_12px_40px_rgba(0,0,0,0.4)]"
-                    style={{ borderLeft: `2px solid ${color}` }}
-                  >
-                    <IconSquare color={color} icon={Icon} />
-                    <div className="min-w-0 flex-1">
-                      <div className="mb-4 flex items-center justify-between gap-3">
-                        <h3 className="font-body text-base font-semibold uppercase tracking-[0.18em] text-white md:text-lg">
-                          {en ? category.title : category.titleEs}
-                        </h3>
-                        {isAI && <AiBadge />}
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {category.skills.map((skill) => (
-                          <Chip key={skill}>{skill}</Chip>
+                <FadeIn key={category.title} delay={Math.min(i * 0.04, 0.2)} y={12}>
+                  <div className="border-t border-white/15 py-5">
+                    <h3 className="mb-3.5 font-mono text-label uppercase text-white/55">
+                      {en ? category.title : category.titleEs}
+                    </h3>
+
+                    {tools.length > 0 && (
+                      <ul className="flex flex-wrap gap-2.5 [@media(hover:none)]:gap-x-1 [@media(hover:none)]:gap-y-3" aria-label={en ? 'Tools' : 'Herramientas'}>
+                        {tools.map((tool) => (
+                          <ToolTile key={tool} name={tool} icon={TOOL_ICONS[tool]} />
                         ))}
-                      </div>
-                    </div>
+                      </ul>
+                    )}
+
+                    {methods.length > 0 && (
+                      <p className={cn('font-body text-base leading-relaxed text-white/80', tools.length > 0 && 'mt-4')}>
+                        {methods.join(' / ')}
+                      </p>
+                    )}
                   </div>
                 </FadeIn>
               );

@@ -18,6 +18,13 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.experience': 'Experience',
     'nav.courses': 'Courses',
     'nav.portfolio': 'Portfolio',
+    'nav.contact': 'Contact',
+    'resume.projectsInRole': 'Projects in this role',
+    'services.cat.design': 'Design',
+    'services.cat.ai': 'AI',
+    'services.cat.build': 'Build',
+    'services.cat.brand': 'Brand',
+    'services.cat.management': 'Management',
     // Navigation
 
     // Hero
@@ -66,7 +73,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'services.explore': 'Explore',
 
     // Contact
-    'contact.subtitle': "Don't hesitate to reach out—I'd love to hear from you!",
+    'contact.subtitle': 'Open to new projects and roles. Email is the fastest way to reach me.',
     'contact.call': 'Call me',
     'contact.downloadCV': 'Download CV',
     'contact.quote': '"Life is just a game."',
@@ -78,6 +85,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'landing.problem': 'Problem',
     'landing.solution': 'Solution',
     'landing.impact': 'Impact',
+    'landing.scope': 'Scope',
     'landing.insight': 'Key Insight',
     'landing.process': 'UX Process',
     'landing.decisions': 'UX Decisions',
@@ -105,7 +113,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'sh.visual.eyebrow': 'Playground',
     'sh.visual.title': 'Visual',
     'sh.visual.accent': 'playground',
-    'landing.marquee': "LET'S WORK TOGETHER",
+    'landing.marquee': "Let's work together.",
     'landing.sayHi': 'Say hi',
     'landing.available': 'Available for projects',
     'landing.view': 'View',
@@ -124,6 +132,13 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.experience': 'Experiencia',
     'nav.courses': 'Cursos',
     'nav.portfolio': 'Portfolio',
+    'nav.contact': 'Contacto',
+    'resume.projectsInRole': 'Proyectos en este puesto',
+    'services.cat.design': 'Diseño',
+    'services.cat.ai': 'IA',
+    'services.cat.build': 'Desarrollo',
+    'services.cat.brand': 'Marca',
+    'services.cat.management': 'Gestión',
     // Navigation
 
     // Hero
@@ -172,7 +187,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'services.explore': 'Explorar',
 
     // Contact
-    'contact.subtitle': '¡No dudes en contactarme—me encantaría saber de ti!',
+    'contact.subtitle': 'Abierto a nuevos proyectos y roles. El email es la forma más rápida de contactarme.',
     'contact.call': 'Llámame',
     'contact.downloadCV': 'Descargar CV',
     'contact.quote': '"La vida es solo un juego."',
@@ -184,6 +199,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'landing.problem': 'Problema',
     'landing.solution': 'Solución',
     'landing.impact': 'Impacto',
+    'landing.scope': 'Alcance',
     'landing.insight': 'Insight Clave',
     'landing.process': 'Proceso UX',
     'landing.decisions': 'Decisiones UX',
@@ -211,7 +227,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'sh.visual.eyebrow': 'Playground',
     'sh.visual.title': 'Trabajo',
     'sh.visual.accent': 'visual',
-    'landing.marquee': 'TRABAJEMOS JUNTOS',
+    'landing.marquee': 'Trabajemos juntos.',
     'landing.sayHi': 'Escribime',
     'landing.available': 'Disponible para proyectos',
     'landing.view': 'Ver',

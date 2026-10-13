@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   stackWindow,
+  slotHeights,
   SLOT_VH,
   DWELL_VH,
   STACK_SHRINK,
@@ -53,5 +54,25 @@ describe('sticky stack maths', () => {
       const back = stackWindow(0, total).targetScale;
       expect(back).toBeCloseTo(1 - STACK_SHRINK, 6);
     }
+  });
+});
+
+describe('slotHeights', () => {
+  // stackWindow only depends on the slot/dwell ratio, so every mode has to
+  // keep it, or the recede windows drift when the cards go compact.
+  const parse = (css: string) => css.match(/[\d.]+/g)!.map(Number);
+
+  it('keeps the dwell/slot ratio in every mode', () => {
+    for (const mode of ['full', 'compact', 'mobile'] as const) {
+      const { slot, dwell } = slotHeights(mode);
+      const s = parse(slot);
+      const d = parse(dwell);
+      s.forEach((value, i) => expect(d[i] / value).toBeCloseTo(DWELL_VH / SLOT_VH, 6));
+    }
+  });
+
+  it('makes the compact and mobile slots shorter than the full one', () => {
+    expect(parse(slotHeights('compact').slot)[0]).toBeLessThan(SLOT_VH);
+    expect(parse(slotHeights('mobile').slot)[0]).toBeLessThan(parse(slotHeights('compact').slot)[0]);
   });
 });

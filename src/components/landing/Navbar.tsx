@@ -86,8 +86,7 @@ export const Navbar: React.FC = () => {
 
           {/* Say hi CTA */}
           <a href="#contact" className="group relative ml-1.5 hidden rounded-full sm:block">
-            <span className="gradient-ring opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true" />
-            <span className="relative z-10 inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-white px-5 py-2 text-sm font-medium text-black lg:text-base">
+            <span className="relative z-10 inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-white px-5 py-2 text-sm font-medium text-black transition-colors duration-300 group-hover:bg-white/80 lg:text-base">
               {t('landing.sayHi')}
               <ArrowUpRight className="h-4 w-4" />
             </span>
