@@ -274,7 +274,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, progress, onO
       <motion.article
         ref={articleRef}
         style={reduce ? undefined : { scale }}
-        className="w-full origin-top overflow-hidden rounded-2xl border border-white/10 bg-[#0A0D12] p-6 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.9)] sm:rounded-3xl sm:p-8 md:p-10 max-h-full"
+        // Compact cards take their natural height: capping them to the slot
+        // (minus the stack offset) clipped the bottom padding of the last cards
+        // on phones, worst with the longer Spanish copy or a larger system font.
+        className={cn(
+          'w-full origin-top overflow-hidden rounded-2xl border border-white/10 bg-[#0A0D12] p-6 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.9)] sm:rounded-3xl sm:p-8 md:p-10',
+          !compact && 'max-h-full'
+        )}
       >
         <ProjectCardBody project={project} index={index} onOpenDetail={onOpenDetail} compact={compact} />
       </motion.article>
