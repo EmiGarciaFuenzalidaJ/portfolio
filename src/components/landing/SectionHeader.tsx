@@ -1,4 +1,5 @@
 import { FadeIn } from './FadeIn';
+import { RevealWords } from './RevealWords';
 import { cn } from '@/lib/utils';
 
 interface SectionHeaderProps {
@@ -44,7 +45,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
     </div>
 
     <h2 className="text-h2 font-semibold tracking-[-0.02em] text-white">
-      {title} {accent}
+      <RevealWords text={`${title} ${accent}`} />
     </h2>
 
     {subtext && (

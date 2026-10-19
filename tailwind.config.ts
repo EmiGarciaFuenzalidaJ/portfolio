@@ -41,6 +41,8 @@ export default {
         h2: ['clamp(2rem, 5vw, 4rem)', { lineHeight: '1.02' }],
         h1: ['clamp(2.5rem, 8vw, 6rem)', { lineHeight: '0.95' }],
         display: ['clamp(3rem, 12vw, 10rem)', { lineHeight: '0.9' }],
+        /** Oversized index numerals on the project cards. */
+        numeral: ['clamp(7rem, 16vw, 13rem)', { lineHeight: '0.8', letterSpacing: '-0.04em' }],
       },
       colors: {
         border: "hsl(var(--border))",

@@ -2,6 +2,7 @@ import { Copy, Download, MapPin, MessageCircle } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { toast } from '@/components/ui/sonner';
 import { FadeIn } from './FadeIn';
+import { RevealWords } from './RevealWords';
 import { ContactButton, LiveProjectButton } from './Buttons';
 import { SocialLinks } from './SocialLinks';
 import { CV_HREF } from '@/data/cv';
@@ -35,7 +36,7 @@ export const ContactSectionV2: React.FC = () => {
               <span className="text-white/55">{t('nav.contact')}</span>
             </div>
             <h2 className="text-h1 font-body font-semibold tracking-[-0.03em] text-white">
-              {t('landing.marquee')}
+              <RevealWords text={t('landing.marquee')} />
             </h2>
             <p className="mb-10 mt-6 max-w-2xl text-lead font-body font-light text-white/70">
               {t('contact.subtitle')}

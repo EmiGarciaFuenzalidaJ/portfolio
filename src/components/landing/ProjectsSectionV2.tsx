@@ -113,7 +113,7 @@ const ProjectCardBody: React.FC<ProjectCardBodyProps> = ({ project, index, onOpe
         <button
           type="button"
           onClick={() => onOpenDetail(project)}
-          className="group inline-flex items-center gap-1.5 font-body text-sm font-medium text-white/80 underline decoration-white/30 underline-offset-[6px] transition-colors duration-300 hover:text-white hover:decoration-white"
+          className="group -my-2 inline-flex items-center gap-1.5 py-2 font-body text-sm font-medium text-white/80 underline decoration-white/30 underline-offset-[6px] transition-colors duration-300 hover:text-white hover:decoration-white"
         >
           {t('landing.fullCase')}
           <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
@@ -278,11 +278,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, progress, onO
         // (minus the stack offset) clipped the bottom padding of the last cards
         // on phones, worst with the longer Spanish copy or a larger system font.
         className={cn(
-          'w-full origin-top overflow-hidden rounded-2xl border border-white/10 bg-[#0A0D12] p-6 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.9)] sm:rounded-3xl sm:p-8 md:p-10',
+          'relative w-full origin-top overflow-hidden rounded-2xl border border-white/10 bg-[#0A0D12] p-6 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.9)] sm:rounded-3xl sm:p-8 md:p-10',
           !compact && 'max-h-full'
         )}
       >
-        <ProjectCardBody project={project} index={index} onOpenDetail={onOpenDetail} compact={compact} />
+        {/* Oversized index numeral, cropped by the card edge — the work-index
+            device award-winning portfolios use. Decorative: the card already
+            states its position as text. */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-3 -top-5 select-none font-body text-numeral font-extrabold text-white/[0.045]"
+        >
+          {String(index + 1).padStart(2, '0')}
+        </span>
+        <div className="relative">
+          <ProjectCardBody project={project} index={index} onOpenDetail={onOpenDetail} compact={compact} />
+        </div>
       </motion.article>
     </div>
   );

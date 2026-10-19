@@ -1,98 +1,91 @@
+import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { skillCategories } from '@/data/skills';
 import { TOOL_ICONS, type ToolIcon } from '@/data/toolIcons';
 import { FadeIn } from './FadeIn';
 import { SectionHeader } from './SectionHeader';
+import { IndexRow } from './IndexRow';
 import { SECTION, CONTAINER } from './layout';
 import { cn } from '@/lib/utils';
-
-const ACCENT = '#89AACC';
-
-type Discipline = 'design' | 'ai' | 'build' | 'brand' | 'management';
 
 interface Service {
   /** Translation key suffix under `services.*` (already bilingual). */
   key: string;
-  discipline: Discipline;
   tags: { en: string[]; es: string[] };
 }
 
 /**
- * Design leads — that is the job. AI comes right after it as the strongest
- * complement, marked with the accent; everything else follows by discipline.
+ * Eleven services in three disciplines. Design leads — that is the job;
+ * AI heads the second column as the strongest complement.
  */
-const SERVICES: Service[] = [
-  { key: 'uxui', discipline: 'design', tags: { en: ['Figma', 'User Research', 'User Flows', 'Design Systems'], es: ['Figma', 'Investigación', 'Flujos de Usuario', 'Design Systems'] } },
-  { key: 'ai', discipline: 'ai', tags: { en: ['AI Chatbots', 'n8n Workflows', 'AI Agents', 'Conversational UX'], es: ['Chatbots IA', 'Workflows n8n', 'Agentes IA', 'UX Conversacional'] } },
-  { key: 'interaction', discipline: 'design', tags: { en: ['Micro-interactions', 'Motion'], es: ['Micro-interacciones', 'Motion'] } },
-  { key: 'prototype', discipline: 'design', tags: { en: ['Hi-Fi Prototypes', 'Testing'], es: ['Prototipos Hi-Fi', 'Testing'] } },
-  { key: 'pm', discipline: 'management', tags: { en: ['Agile / Scrum', 'Planning', 'Team Leadership'], es: ['Agile / Scrum', 'Planificación', 'Liderazgo'] } },
-  { key: 'webdev', discipline: 'build', tags: { en: ['React', 'Responsive'], es: ['React', 'Responsive'] } },
-  { key: 'gamedev', discipline: 'build', tags: { en: ['Unity', 'C#'], es: ['Unity', 'C#'] } },
-  { key: 'vrar', discipline: 'build', tags: { en: ['VR', 'AR', 'Simulation'], es: ['VR', 'AR', 'Simulación'] } },
-  { key: 'brand', discipline: 'brand', tags: { en: ['Identity', 'Logos'], es: ['Identidad', 'Logos'] } },
-  { key: 'graphic', discipline: 'brand', tags: { en: ['Illustration', 'Print'], es: ['Ilustración', 'Impreso'] } },
-  { key: 'social', discipline: 'brand', tags: { en: ['Content', 'Strategy'], es: ['Contenido', 'Estrategia'] } },
+const COLUMNS: { key: string; services: Service[] }[] = [
+  {
+    key: 'design',
+    services: [
+      { key: 'uxui', tags: { en: ['Figma', 'User Research', 'User Flows', 'Design Systems'], es: ['Figma', 'Investigación', 'Flujos de Usuario', 'Design Systems'] } },
+      { key: 'interaction', tags: { en: ['Micro-interactions', 'Motion'], es: ['Micro-interacciones', 'Motion'] } },
+      { key: 'prototype', tags: { en: ['Hi-Fi Prototypes', 'Testing'], es: ['Prototipos Hi-Fi', 'Testing'] } },
+      { key: 'pm', tags: { en: ['Agile / Scrum', 'Planning', 'Team Leadership'], es: ['Agile / Scrum', 'Planificación', 'Liderazgo'] } },
+    ],
+  },
+  {
+    key: 'tech',
+    services: [
+      { key: 'ai', tags: { en: ['AI Chatbots', 'n8n Workflows', 'AI Agents', 'Conversational UX'], es: ['Chatbots IA', 'Workflows n8n', 'Agentes IA', 'UX Conversacional'] } },
+      { key: 'webdev', tags: { en: ['React', 'Responsive'], es: ['React', 'Responsive'] } },
+      { key: 'gamedev', tags: { en: ['Unity', 'C#'], es: ['Unity', 'C#'] } },
+      { key: 'vrar', tags: { en: ['VR', 'AR', 'Simulation'], es: ['VR', 'AR', 'Simulación'] } },
+    ],
+  },
+  {
+    key: 'brand',
+    services: [
+      { key: 'brand', tags: { en: ['Identity', 'Logos'], es: ['Identidad', 'Logos'] } },
+      { key: 'graphic', tags: { en: ['Illustration', 'Print'], es: ['Ilustración', 'Impreso'] } },
+      { key: 'social', tags: { en: ['Content', 'Strategy'], es: ['Contenido', 'Estrategia'] } },
+    ],
+  },
 ];
 
 // Design-led order for the toolkit too.
 const ORDER = ['Product Design', 'AI & Workflow', 'Visual & Motion', 'Development', 'UX Research', 'Simulation & XR', 'Methodology'];
 const TOOLKIT = [...skillCategories].sort((a, b) => ORDER.indexOf(a.title) - ORDER.indexOf(b.title));
 
-/**
- * One service card. The design lives in the card itself rather than in
- * decoration around it: a mono header (number · discipline), the title, the
- * description, and a footer ruled off with the tools — so every card has the
- * same four parts in the same places and a row of cards lines up.
- */
-const ServiceCard: React.FC<{ service: Service; index: number; lead?: boolean }> = ({ service, index, lead }) => {
+/** One discipline: a label and its services as rows that open in place. */
+const ServiceColumn: React.FC<{ column: (typeof COLUMNS)[number]; start: number }> = ({ column, start }) => {
   const { t, language } = useLanguage();
-  const isAI = service.discipline === 'ai';
-  const tags = language === 'en' ? service.tags.en : service.tags.es;
+  // The first service of each column starts open, so the panel never reads empty.
+  const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <article
-      className={cn(
-        'group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-[#0A0D12]/90 transition-colors duration-300',
-        isAI ? 'border-[#89AACC]/35 hover:border-[#89AACC]/70' : 'border-white/10 hover:border-white/30'
-      )}
-    >
-      {/* Machined top edge: a 1px highlight that brightens on hover. */}
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-100"
-      />
-
-      <header className="flex items-center justify-between px-6 pt-6 font-mono text-label uppercase md:px-7 md:pt-7">
-        <span className="text-white/45">{String(index + 1).padStart(2, '0')}</span>
-        <span style={{ color: isAI ? ACCENT : 'rgba(255,255,255,0.55)' }}>
-          {t(`services.cat.${service.discipline}`)}
-        </span>
-      </header>
-
-      <div className={cn('flex-1 px-6 md:px-7', lead ? 'pb-8 pt-10 md:pt-14' : 'pb-6 pt-8')}>
-        <h3
-          className={cn(
-            'font-body font-semibold leading-tight tracking-[-0.01em] text-white',
-            lead ? 'text-h2' : 'text-xl md:text-2xl'
-          )}
+    <div className="bg-[#0A0D12] px-6 pb-2 pt-6 md:px-7">
+      <p className="mb-4 font-mono text-label uppercase text-white/55">
+        {String.fromCharCode(65 + COLUMNS.indexOf(column))} · {t(`services.col.${column.key}`)}
+      </p>
+      {column.services.map((service, i) => (
+        <IndexRow
+          key={service.key}
+          open={open === i}
+          onToggle={() => setOpen(open === i ? null : i)}
+          className={i === 0 ? 'border-t-white/15' : undefined}
+          header={
+            <span className="flex items-baseline gap-3">
+              <span className="font-mono text-label text-white/40">{String(start + i).padStart(2, '0')}</span>
+              <span className="font-body text-lg font-semibold leading-snug text-white">{t(`services.${service.key}`)}</span>
+            </span>
+          }
         >
-          {t(`services.${service.key}`)}
-        </h3>
-        <p
-          className={cn(
-            'mt-3 font-body font-light leading-relaxed text-white/70',
-            lead ? 'max-w-xl text-lead' : 'text-sm md:text-base'
-          )}
-        >
-          {t(`services.${service.key}.desc`)}
-        </p>
-      </div>
-
-      <footer className="border-t border-white/10 px-6 py-4 font-mono text-label uppercase leading-relaxed text-white/50 md:px-7">
-        {tags.join(' · ')}
-      </footer>
-    </article>
+          <div className="pl-8">
+            <p className="font-body text-sm font-light leading-relaxed text-white/70">
+              {t(`services.${service.key}.desc`)}
+            </p>
+            <p className="mt-3 font-mono text-label uppercase leading-relaxed text-white/45">
+              {(language === 'en' ? service.tags.en : service.tags.es).join(' · ')}
+            </p>
+          </div>
+        </IndexRow>
+      ))}
+    </div>
   );
 };
 
@@ -135,9 +128,11 @@ const ToolTile: React.FC<{ name: string; icon: ToolIcon }> = ({ name, icon }) =>
   </li>
 );
 
+
 /**
- * Services as designed cards — UX/UI leading, AI beside it — then the toolkit,
- * where tools are icon tiles and methods stay as text, kept apart.
+ * Services as three discipline columns in one panel — the compact structure
+ * Lama Lama uses — with each service opening in place. Then the toolkit,
+ * where tools are icon tiles and methods stay as text.
  */
 export const ServicesSection: React.FC = () => {
   const { t, language } = useLanguage();
@@ -155,18 +150,17 @@ export const ServicesSection: React.FC = () => {
           className="mb-12 md:mb-16"
         />
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map((service, i) => (
-            <FadeIn
-              key={service.key}
-              delay={Math.min((i % 3) * 0.06, 0.18)}
-              y={20}
-              className={i === 0 ? 'md:col-span-2' : undefined}
-            >
-              <ServiceCard service={service} index={i} lead={i === 0} />
-            </FadeIn>
-          ))}
-        </div>
+        <FadeIn y={20}>
+          <div className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 md:grid-cols-3">
+            {COLUMNS.map((column, ci) => (
+              <ServiceColumn
+                key={column.key}
+                column={column}
+                start={1 + COLUMNS.slice(0, ci).reduce((n, c) => n + c.services.length, 0)}
+              />
+            ))}
+          </div>
+        </FadeIn>
 
         {/* Toolkit — two-column index; tools as icons, methods as text */}
         <div className="mt-24 md:mt-32">

@@ -20,11 +20,13 @@ export const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const LangToggle = () => (
-    <div className="flex items-center gap-1.5 px-2 text-sm font-medium lg:text-base">
+    <div className="flex items-center gap-0.5 px-1 text-sm font-medium lg:text-base">
       <button
         onClick={() => setLanguage('en')}
+        aria-pressed={language === 'en'}
+        aria-label="English"
         className={cn(
-          'transition-colors duration-200',
+          'inline-flex min-h-8 min-w-8 items-center justify-center rounded-full transition-colors duration-200',
           language === 'en' ? 'text-[#89AACC]' : 'text-white/55 hover:text-white'
         )}
       >
@@ -33,8 +35,10 @@ export const Navbar: React.FC = () => {
       <span aria-hidden="true" className="text-white/45">/</span>
       <button
         onClick={() => setLanguage('es')}
+        aria-pressed={language === 'es'}
+        aria-label="Español"
         className={cn(
-          'transition-colors duration-200',
+          'inline-flex min-h-8 min-w-8 items-center justify-center rounded-full transition-colors duration-200',
           language === 'es' ? 'text-[#89AACC]' : 'text-white/55 hover:text-white'
         )}
       >

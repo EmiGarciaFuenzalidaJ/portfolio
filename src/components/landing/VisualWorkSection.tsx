@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { ExternalLink } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { SECTION, CONTAINER } from './layout';
 
 const ACCENT = '#89AACC';
+const PREVIEW_COUNT = 6;
 
 /** Bento span pattern per row of two: 7/5 then 5/7. */
 const spanClass = (index: number) => {
@@ -26,10 +27,19 @@ const aspectClass = (index: number) => {
 export const VisualWorkSection: React.FC = () => {
   const { t, language } = useLanguage();
   const [selected, setSelected] = useState<PortfolioItem | null>(null);
+  // Six pieces up front, the rest one click away: the full bento was one of
+  // the longest stretches of the page.
+  const [showAll, setShowAll] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const visible = showAll ? portfolioItems : portfolioItems.slice(0, PREVIEW_COUNT);
+  const toggleAll = () => {
+    if (showAll) sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setShowAll(!showAll);
+  };
   const en = language === 'en';
 
   return (
-    <section id="visual-work" className={SECTION}>
+    <section id="visual-work" ref={sectionRef} className={SECTION}>
       <div className={CONTAINER}>
         <SectionHeader
           index="07"
@@ -41,7 +51,7 @@ export const VisualWorkSection: React.FC = () => {
         />
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-12">
-          {portfolioItems.map((item, index) => (
+          {visible.map((item, index) => (
             <FadeIn key={item.title} className={spanClass(index)} delay={Math.min((index % 2) * 0.1, 0.2)} y={24}>
               <button
                 type="button"
@@ -72,6 +82,22 @@ export const VisualWorkSection: React.FC = () => {
             </FadeIn>
           ))}
         </div>
+
+        {portfolioItems.length > PREVIEW_COUNT && (
+          <div className="mt-10 flex justify-center">
+            <button
+              type="button"
+              onClick={toggleAll}
+              aria-expanded={showAll}
+              className="inline-flex items-center gap-3 rounded-full border border-white/25 px-6 py-3 font-mono text-label uppercase text-white/80 transition-colors hover:border-white/70 hover:text-white"
+            >
+              {showAll ? t('visual.showLess') : `${t('visual.showAll')} · ${portfolioItems.length}`}
+              <span aria-hidden="true" className={showAll ? 'rotate-45 transition-transform' : 'transition-transform'}>
+                +
+              </span>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Detail modal */}
