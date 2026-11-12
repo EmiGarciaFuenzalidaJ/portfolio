@@ -45,6 +45,10 @@ export default {
         numeral: ['clamp(7rem, 16vw, 13rem)', { lineHeight: '0.8', letterSpacing: '-0.04em' }],
       },
       colors: {
+        // The palette of the landing: one accent, one panel surface, one page ink.
+        brand: '#89AACC',
+        panel: '#0A0D12',
+        ink: '#0C0C0C',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

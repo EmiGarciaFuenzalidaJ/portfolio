@@ -9,7 +9,7 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#0C0C0C]">
+    <div className="flex min-h-screen items-center justify-center bg-ink">
       <div className="text-center">
         <h1 className="hero-heading mb-4 font-black uppercase" style={{ fontSize: 'clamp(4rem, 15vw, 10rem)' }}>
           404

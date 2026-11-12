@@ -28,6 +28,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'courses.hint': 'Drag, swipe or use the arrows · click to view',
     'resume.projects': 'projects',
     'info.label': 'At a glance',
+    'info.statement': "I design digital products from user research to a working interface. Lately that means AI backoffices, voice agents and data tools; before that, XR training simulators. I prototype in Figma or straight in code, whichever answers the question faster.",
     'info.designer': 'Designer',
     'info.based': 'Based in',
     'info.focus': 'Focus',
@@ -44,7 +45,7 @@ export const translations: Record<Language, Record<string, string>> = {
     // Hero
 
     // Projects
-    'projects.subtitle': 'Impact-driven work across simulation, civic tech, AI, and design systems.',
+    'projects.subtitle': "Seven case studies across AI products, e-commerce, civic tech, simulation and design systems — each with its problem, decisions and results.",
 
     // How I Work
 
@@ -54,7 +55,7 @@ export const translations: Record<Language, Record<string, string>> = {
     // Resume
 
     // Courses
-    'courses.subtitle': 'A showcase of courses I\'ve completed.',
+    'courses.subtitle': "Twenty courses and certifications, from Google UX Design to Unity and full-stack development.",
 
     // Skills
     'skills.title': 'Tools & Skills',
@@ -67,28 +68,31 @@ export const translations: Record<Language, Record<string, string>> = {
     'services.title': 'Services',
     'services.description': 'What I do across a product: research and interface design, design systems, conversational and immersive experiences, and the frontend to ship them.',
     'services.webdev': 'Web Development',
-    'services.webdev.desc': 'Building responsive, dynamic, and visually engaging websites tailored to your needs.',
+    'services.webdev.desc': "Responsive front ends in React. I implement my own designs, so nothing is lost between the mockup and production.",
     'services.graphic': 'Graphic Design',
-    'services.graphic.desc': 'Creating captivating visual content for print and digital media, from logos to full branding.',
+    'services.graphic.desc': "Visual pieces for print and digital: logos, key art, cover artwork and promotional material.",
     'services.uxui': 'UX/UI Design',
-    'services.uxui.desc': 'Designing intuitive and user-friendly interfaces that enhance the user experience.',
+    'services.uxui.desc': "End-to-end UX/UI for web and mobile products: research, information architecture, flows and high-fidelity interfaces, validated with users before they are built.",
     'services.gamedev': 'Game & Interactive Design',
     'services.gamedev.desc': 'Designing immersive interactive experiences — mechanics, interface and feel — built in Unity.',
     'services.brand': 'Brand Identity Design',
-    'services.brand.desc': 'Developing cohesive and memorable brand identities that resonate with your audience.',
+    'services.brand.desc': "Brand identities built as systems — logo, colour, type and usage rules — so the brand stays consistent wherever it appears.",
     'services.social': 'Social & Content Design',
     'services.social.desc': 'Designing visual content and post systems that keep a brand consistent across platforms.',
     'services.interaction': 'Interaction Design',
-    'services.interaction.desc': 'Designing intuitive interactions, flows and micro-interactions that improve usability.',
+    'services.interaction.desc': "Flows, states and micro-interactions defined in detail — including the empty, loading and error cases — so the product behaves as well as it looks.",
     'services.vrar': 'VR and AR Development',
-    'services.vrar.desc': 'Creating immersive virtual and augmented reality experiences for diverse platforms.',
+    'services.vrar.desc': "AR and VR training experiences in Unity: evacuation, first-aid and road-safety simulators designed around measurable learning outcomes.",
     'services.prototype': 'Prototyping',
-    'services.prototype.desc': 'Designing interactive prototypes to visualize user flows and test functionality.',
+    'services.prototype.desc': "Interactive prototypes in Figma or directly in code (HTML, React), fast enough to test an idea with real users within days.",
     'services.explore': 'Explore',
 
     // Contact
     'contact.subtitle': 'Open to new projects and roles. Email is the fastest way to reach me.',
-    'contact.call': 'Call me',
+    'contact.call': "WhatsApp",
+    'contact.rights': "All rights reserved.",
+    'contact.copyFailed': "Could not copy the email",
+    'contact.copied': "Email copied",
     'contact.downloadCV': 'Download CV',
     'contact.quote': '"Life is just a game."',
 
@@ -104,7 +108,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'landing.process': 'UX Process',
     'landing.decisions': 'UX Decisions',
     'landing.close': 'Close',
-    'landing.heroTagline': 'a ux designer crafting striking experiences for ai, simulation and human behavior',
+    'landing.heroTagline': "ux/ui designer — research, interface and code for ai products, data tools and simulation",
     'landing.aboutBody': "I'm a UX/UI designer with a background in game development, focused on crafting digital experiences that combine logic, emotion, and user-centered thinking. My technical background lets me collaborate smoothly with developers and bring unique visions to life. Let's build something incredible together!",
     'landing.viewCertificate': 'View certificate',
     'landing.about1': "I'm Emi García,",
@@ -117,6 +121,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'sh.projects.title': 'Featured',
     'sh.projects.accent': 'projects',
     'sh.exp.eyebrow': 'Background',
+    'sh.edu.eyebrow': "Education",
     'sh.exp.title': 'Professional',
     'sh.exp.accent': 'journey',
     'sh.edu.title': 'Education &',
@@ -156,6 +161,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'courses.hint': 'Arrastrá, deslizá o usá las flechas · clic para ver',
     'resume.projects': 'proyectos',
     'info.label': 'De un vistazo',
+    'info.statement': "Diseño productos digitales desde la investigación con usuarios hasta una interfaz funcionando. Últimamente son backoffices con IA, agentes de voz y herramientas de datos; antes, simuladores de capacitación en XR. Prototipo en Figma o directamente en código, lo que responda la pregunta más rápido.",
     'info.designer': 'Diseñador',
     'info.based': 'Ubicación',
     'info.focus': 'Foco',
@@ -172,7 +178,7 @@ export const translations: Record<Language, Record<string, string>> = {
     // Hero
 
     // Projects
-    'projects.subtitle': 'Trabajo orientado al impacto en simulación, civic tech, IA y sistemas de diseño.',
+    'projects.subtitle': "Siete casos en productos con IA, e-commerce, civic tech, simulación y sistemas de diseño — cada uno con su problema, decisiones y resultados.",
 
     // How I Work
 
@@ -182,7 +188,7 @@ export const translations: Record<Language, Record<string, string>> = {
     // Resume
 
     // Courses
-    'courses.subtitle': 'Una muestra de los cursos que he completado.',
+    'courses.subtitle': "Veinte cursos y certificaciones, de Google UX Design a Unity y desarrollo full stack.",
 
     // Skills
     'skills.title': 'Herramientas y Habilidades',
@@ -195,28 +201,31 @@ export const translations: Record<Language, Record<string, string>> = {
     'services.title': 'Servicios',
     'services.description': 'Lo que hago dentro de un producto: investigación y diseño de interfaz, design systems, experiencias conversacionales e inmersivas, y el frontend para entregarlas.',
     'services.webdev': 'Desarrollo Web',
-    'services.webdev.desc': 'Construyendo sitios web responsivos, dinámicos y visualmente atractivos, a medida de tus necesidades.',
+    'services.webdev.desc': "Front ends responsivos en React. Implemento mis propios diseños, así nada se pierde entre el mockup y producción.",
     'services.graphic': 'Diseño Gráfico',
-    'services.graphic.desc': 'Creando contenido visual cautivador para medios impresos y digitales, desde logos hasta branding completo.',
+    'services.graphic.desc': "Piezas visuales para impresión y digital: logos, key art, arte de tapa y material promocional.",
     'services.uxui': 'Diseño UX/UI',
-    'services.uxui.desc': 'Diseñando interfaces intuitivas y amigables que mejoran la experiencia del usuario.',
+    'services.uxui.desc': "UX/UI de punta a punta para productos web y mobile: investigación, arquitectura de información, flujos e interfaces en alta fidelidad, validadas con usuarios antes de construirlas.",
     'services.gamedev': 'Diseño de Juegos e Interactivo',
     'services.gamedev.desc': 'Diseñando experiencias interactivas inmersivas — mecánicas, interfaz y sensación — construidas en Unity.',
     'services.brand': 'Diseño de Identidad de Marca',
-    'services.brand.desc': 'Desarrollando identidades de marca cohesivas y memorables que conectan con tu audiencia.',
+    'services.brand.desc': "Identidades de marca pensadas como sistema — logo, color, tipografía y reglas de uso — para que la marca se mantenga consistente donde aparezca.",
     'services.social': 'Diseño Social y de Contenido',
     'services.social.desc': 'Diseñando contenido visual y sistemas de publicación que mantienen la marca consistente en todas las plataformas.',
     'services.interaction': 'Diseño de Interacción',
-    'services.interaction.desc': 'Diseñando interacciones, flujos y micro-interacciones intuitivas que mejoran la usabilidad.',
+    'services.interaction.desc': "Flujos, estados y microinteracciones definidos en detalle — incluidos los casos vacíos, de carga y de error — para que el producto se comporte tan bien como se ve.",
     'services.vrar': 'Desarrollo VR y AR',
-    'services.vrar.desc': 'Creando experiencias inmersivas de realidad virtual y aumentada para diversas plataformas.',
+    'services.vrar.desc': "Experiencias de capacitación en AR y VR con Unity: simuladores de evacuación, primeros auxilios y seguridad vial diseñados alrededor de resultados de aprendizaje medibles.",
     'services.prototype': 'Prototipado',
-    'services.prototype.desc': 'Diseñando prototipos interactivos para visualizar flujos de usuario y probar funcionalidad.',
+    'services.prototype.desc': "Prototipos interactivos en Figma o directamente en código (HTML, React), lo bastante rápidos para probar una idea con usuarios reales en días.",
     'services.explore': 'Explorar',
 
     // Contact
     'contact.subtitle': 'Abierto a nuevos proyectos y roles. El email es la forma más rápida de contactarme.',
-    'contact.call': 'Llámame',
+    'contact.call': "WhatsApp",
+    'contact.rights': "Todos los derechos reservados.",
+    'contact.copyFailed': "No se pudo copiar el email",
+    'contact.copied': "Email copiado",
     'contact.downloadCV': 'Descargar CV',
     'contact.quote': '"La vida es solo un juego."',
 
@@ -232,7 +241,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'landing.process': 'Proceso UX',
     'landing.decisions': 'Decisiones UX',
     'landing.close': 'Cerrar',
-    'landing.heroTagline': 'diseñador ux creando experiencias impactantes para ia, simulación y comportamiento humano',
+    'landing.heroTagline': "diseñador ux/ui — investigación, interfaz y código para productos con ia, datos y simulación",
     'landing.aboutBody': 'Soy diseñador UX/UI con experiencia en desarrollo de videojuegos, enfocado en crear experiencias digitales que combinan lógica, emoción y pensamiento centrado en el usuario. Mi formación técnica me permite colaborar fluidamente con desarrolladores y dar vida a visiones únicas. ¡Construyamos algo increíble juntos!',
     'landing.viewCertificate': 'Ver certificado',
     'landing.about1': 'Soy Emi García,',
@@ -245,6 +254,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'sh.projects.title': 'Proyectos',
     'sh.projects.accent': 'destacados',
     'sh.exp.eyebrow': 'Trayectoria',
+    'sh.edu.eyebrow': "Formación",
     'sh.exp.title': 'Recorrido',
     'sh.exp.accent': 'profesional',
     'sh.edu.title': 'Educación y',

@@ -18,9 +18,9 @@ export const ContactSectionV2: React.FC = () => {
   const copyEmail = async () => {
     try {
       await navigator.clipboard.writeText(EMAIL);
-      toast('Email copied', { description: EMAIL });
+      toast(t('contact.copied'), { description: EMAIL });
     } catch {
-      toast('Could not copy email', { description: EMAIL });
+      toast(t('contact.copyFailed'), { description: EMAIL });
     }
   };
 
@@ -32,7 +32,7 @@ export const ContactSectionV2: React.FC = () => {
               which is one of the most recognisable template endings. */}
           <FadeIn>
             <div className="mb-8 flex items-center gap-3 border-t border-white/15 pt-4 font-mono text-label uppercase">
-              <span className="text-[#89AACC]">08</span>
+              <span className="text-brand">08</span>
               <span className="text-white/55">{t('nav.contact')}</span>
             </div>
             <h2 className="text-h1 font-body font-semibold tracking-[-0.03em] text-white">
@@ -48,7 +48,7 @@ export const ContactSectionV2: React.FC = () => {
             <button
               type="button"
               onClick={copyEmail}
-              className="group inline-flex items-center gap-3 break-all text-left text-h2 font-body font-semibold tracking-tight text-white transition-colors duration-300 hover:text-[#89AACC]"
+              className="group inline-flex items-center gap-3 break-all text-left text-h2 font-body font-semibold tracking-tight text-white transition-colors duration-300 hover:text-brand"
              
             >
               {EMAIL}
@@ -84,7 +84,7 @@ export const ContactSectionV2: React.FC = () => {
             <div className="mt-12 flex flex-wrap items-center gap-3">
               <SocialLinks size="md" />
               <span className="ml-2 inline-flex items-center gap-1.5 font-body text-sm font-light text-white/50">
-                <MapPin className="h-4 w-4 text-[#89AACC]" />
+                <MapPin className="h-4 w-4 text-brand" />
                 Godoy Cruz, Mendoza, Argentina
               </span>
             </div>
@@ -100,10 +100,10 @@ export const ContactSectionV2: React.FC = () => {
           {/* Footer bar */}
           <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 sm:flex-row">
             <p className="font-body text-xs font-light text-white/55">
-              © {new Date().getFullYear()} Emiliano García Fuenzalida. All rights reserved.
+              © {new Date().getFullYear()} Emiliano García Fuenzalida. {t('contact.rights')}
             </p>
             <p className="inline-flex items-center gap-2 font-body text-xs font-light uppercase tracking-widest text-white/60">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#89AACC]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-brand" />
               {t('landing.available')}
             </p>
           </div>

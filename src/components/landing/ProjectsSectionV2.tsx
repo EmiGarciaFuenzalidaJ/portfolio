@@ -124,14 +124,14 @@ const ProjectCardBody: React.FC<ProjectCardBodyProps> = ({ project, index, onOpe
           row 1: Problem | Impact  ·  row 2: Solution | Insight. */}
       {!compact && (
         <div className="mt-7 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 lg:grid-cols-[44%_1fr]">
-          <div className="order-1 bg-[#0A0D12] p-5 md:p-6 lg:min-h-[150px]">
+          <div className="order-1 bg-panel p-5 md:p-6 lg:min-h-[150px]">
             <Field>{t('landing.problem')}</Field>
             <p className="font-body text-sm font-light leading-relaxed text-white/85 md:text-base">
               {en ? project.problem : project.problemEs}
             </p>
           </div>
 
-          <div className="order-3 flex flex-col bg-[#0A0D12] p-5 md:p-6 lg:order-2 lg:min-h-[150px]">
+          <div className="order-3 flex flex-col bg-panel p-5 md:p-6 lg:order-2 lg:min-h-[150px]">
             <Field>{t(project.metricsKind === 'scope' ? 'landing.scope' : 'landing.impact')}</Field>
             <div className="flex flex-1 flex-col justify-center">
               <div
@@ -157,7 +157,7 @@ const ProjectCardBody: React.FC<ProjectCardBodyProps> = ({ project, index, onOpe
             </div>
           </div>
 
-          <div className="order-2 bg-[#0A0D12] p-5 md:p-6 lg:order-3 lg:min-h-[130px]">
+          <div className="order-2 bg-panel p-5 md:p-6 lg:order-3 lg:min-h-[130px]">
             <Field>{t('landing.solution')}</Field>
             <p className="font-body text-sm font-light leading-relaxed text-white/85 md:text-base">
               {en ? project.solution : project.solutionEs}
@@ -165,7 +165,7 @@ const ProjectCardBody: React.FC<ProjectCardBodyProps> = ({ project, index, onOpe
           </div>
 
           {project.insight && (
-            <div className="order-4 flex flex-col justify-center bg-[#0A0D12] p-5 md:p-6 lg:min-h-[130px]">
+            <div className="order-4 flex flex-col justify-center bg-panel p-5 md:p-6 lg:min-h-[130px]">
               <Field>{t('landing.insight')}</Field>
               <p className="font-heading text-xl italic leading-snug text-white md:text-2xl">
                 “{en ? project.insight : project.insightEs}”
@@ -242,7 +242,7 @@ interface ProjectCardProps {
  * see-through opacity simultaneously (illegible overlapping text). Scale
  * has the same scroll-linked-lag exposure, but the worst case is a card
  * being briefly the "wrong" size — never illegible — and the solid
- * `bg-[#0A0D12]` background already fully hides whatever a card overlaps,
+ * `bg-panel` background already fully hides whatever a card overlaps,
  * regardless of scale. Dropping opacity keeps the effect everywhere.
  */
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, progress, onOpenDetail, compact, onFit }) => {
@@ -278,7 +278,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, progress, onO
         // (minus the stack offset) clipped the bottom padding of the last cards
         // on phones, worst with the longer Spanish copy or a larger system font.
         className={cn(
-          'relative w-full origin-top overflow-hidden rounded-2xl border border-white/10 bg-[#0A0D12] p-6 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.9)] sm:rounded-3xl sm:p-8 md:p-10',
+          'relative w-full origin-top overflow-hidden rounded-2xl border border-white/10 bg-panel p-6 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.9)] sm:rounded-3xl sm:p-8 md:p-10',
           !compact && 'max-h-full'
         )}
       >
@@ -363,7 +363,7 @@ export const ProjectsSectionV2: React.FC = () => {
 
       {/* Full case study modal: process + decisions */}
       <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
-        <DialogContent className="max-h-[90vh] w-[95vw] max-w-4xl overflow-y-auto rounded-2xl border border-white/15 bg-[#0A0D12] p-6 sm:p-10">
+        <DialogContent className="max-h-[90vh] w-[95vw] max-w-4xl overflow-y-auto rounded-2xl border border-white/15 bg-panel p-6 sm:p-10">
           <VisuallyHidden>
             <DialogTitle>{selected && (en ? selected.title : selected.titleEs)}</DialogTitle>
             <DialogDescription>
@@ -382,19 +382,19 @@ export const ProjectsSectionV2: React.FC = () => {
               </p>
 
               <div className="grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 sm:grid-cols-2">
-                <div className="bg-[#0A0D12] p-5">
+                <div className="bg-panel p-5">
                   <Field>{t('landing.problem')}</Field>
                   <p className="font-body text-sm font-light leading-relaxed text-white/85 sm:text-base">
                     {en ? selected.problem : selected.problemEs}
                   </p>
                 </div>
-                <div className="bg-[#0A0D12] p-5">
+                <div className="bg-panel p-5">
                   <Field>{t('landing.solution')}</Field>
                   <p className="font-body text-sm font-light leading-relaxed text-white/85 sm:text-base">
                     {en ? selected.solution : selected.solutionEs}
                   </p>
                 </div>
-                <div className="bg-[#0A0D12] p-5 sm:col-span-2">
+                <div className="bg-panel p-5 sm:col-span-2">
                   <Field>{t(selected.metricsKind === 'scope' ? 'landing.scope' : 'landing.impact')}</Field>
                   <div
                     className={

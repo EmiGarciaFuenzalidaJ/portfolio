@@ -115,10 +115,10 @@ const Row: React.FC<{ item: ResumeItemData; open: boolean; onToggle: () => void 
                         href={project.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group/link -my-1 inline-flex items-baseline gap-1.5 py-1 font-body text-sm font-semibold text-white/90 transition-colors hover:text-[#89AACC]"
+                        className="group/link -my-1 inline-flex items-baseline gap-1.5 py-1 font-body text-sm font-semibold text-white/90 transition-colors hover:text-brand"
                       >
                         {project.title}
-                        <ArrowUpRight className="h-3.5 w-3.5 flex-shrink-0 text-white/45 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5 group-hover/link:text-[#89AACC]" />
+                        <ArrowUpRight className="h-3.5 w-3.5 flex-shrink-0 text-white/45 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5 group-hover/link:text-brand" />
                       </a>
                     ) : (
                       <h5 className="font-body text-sm font-semibold text-white/90">{project.title}</h5>
@@ -186,7 +186,7 @@ export const ExperienceSection: React.FC = () => {
         <div className={CONTAINER}>
           <SectionHeader
             index="05"
-            eyebrow={t('sh.exp.eyebrow')}
+            eyebrow={t('sh.edu.eyebrow')}
             title={t('sh.edu.title')}
             accent={t('sh.edu.accent')}
             className="mb-10 sm:mb-14"

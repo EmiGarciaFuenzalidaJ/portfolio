@@ -14,7 +14,7 @@ export const SectionTitle: React.FC<SectionTitleProps> = ({ children, variant = 
     <h2
       className={cn(
         'font-black uppercase leading-none tracking-tight text-center',
-        variant === 'gradient' ? 'hero-heading' : 'text-[#0C0C0C]',
+        variant === 'gradient' ? 'hero-heading' : 'text-ink',
         className
       )}
       style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}

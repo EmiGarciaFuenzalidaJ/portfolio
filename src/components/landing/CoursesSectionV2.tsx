@@ -167,7 +167,7 @@ export const CoursesSectionV2: React.FC = () => {
 
       {/* Certificate lightbox */}
       <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
-        <DialogContent className="w-[95vw] max-w-4xl overflow-hidden rounded-2xl border border-white/15 bg-[#0A0D12] p-0">
+        <DialogContent className="w-[95vw] max-w-4xl overflow-hidden rounded-2xl border border-white/15 bg-panel p-0">
           <VisuallyHidden>
             <DialogTitle>{selected && (en ? selected.title : selected.titleEs)}</DialogTitle>
             <DialogDescription>

@@ -247,3 +247,19 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #3d444d;
 }
+
+/*
+ * Plain-HTML copy of the content that scripts/postbuild.mjs writes inside
+ * #root for crawlers and clients without JavaScript. index.html sets the
+ * `js` class on <html> before anything paints, so a real visitor never sees
+ * this block; React removes it on mount.
+ */
+.js #static-content { display: none; }
+#static-content { max-width: 52rem; margin: 0 auto; padding: 3rem 1.5rem; font: 16px/1.6 system-ui, sans-serif; color: #D7E2EA; }
+#static-content a { color: #89AACC; text-decoration: underline; }
+#static-content h1 { font-size: 1.8rem; line-height: 1.2; font-weight: 700; }
+#static-content h2 { margin-top: 2.5rem; font-size: 1.3rem; font-weight: 700; }
+#static-content h3 { margin-top: 1.5rem; font-size: 1.05rem; font-weight: 600; }
+#static-content p, #static-content ul { margin-top: 0.6rem; }
+#static-content ul { list-style: disc; padding-left: 1.25rem; }
+#static-content article[lang] + article[lang] { margin-top: 4rem; border-top: 1px solid #2A3138; padding-top: 2rem; }

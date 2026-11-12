@@ -40,7 +40,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
         align === 'center' && 'justify-center'
       )}
     >
-      {index && <span className="text-[#89AACC]">{index}</span>}
+      {index && <span className="text-brand">{index}</span>}
       <span className="text-white/55">{eyebrow}</span>
     </div>
 

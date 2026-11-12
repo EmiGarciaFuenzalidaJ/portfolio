@@ -47,6 +47,10 @@ export const InfoStrip: React.FC = () => {
   return (
     <section aria-label={t('info.label')} className={cn(SECTION_X, 'py-12 md:py-16')}>
       <FadeIn className={CONTAINER}>
+        {/* The one paragraph a visitor should leave with, set large. */}
+        <p className="mb-10 max-w-5xl font-body text-h4 font-light text-white/90 md:mb-14 md:text-h3 md:leading-[1.2]">
+          {t('info.statement')}
+        </p>
         <div className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-3 lg:grid-cols-6">
           <Column label={t('info.designer')}>
             <p className="font-medium text-white">Emiliano García Fuenzalida</p>
@@ -74,7 +78,7 @@ export const InfoStrip: React.FC = () => {
 
           <Column label={t('info.status')}>
             <p className="inline-flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#89AACC]" aria-hidden="true" />
+              <span className="h-1.5 w-1.5 rounded-full bg-brand" aria-hidden="true" />
               {t('landing.available')}
             </p>
             <p className="text-white/60">{t('info.mode')}</p>

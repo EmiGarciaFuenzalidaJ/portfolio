@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { onFramesProgress, preloadFrames } from './frames';
+import { preloadFrames } from './frames';
+import { heroReady } from './heroImages';
 import { T } from './motion';
 
-const WORDS = ['Design', 'Create', 'Inspire'];
-const MIN_TIME_MS = 2400; // minimum showtime so the intro reads
-const MAX_WAIT_MS = 9000; // failsafe: never block longer than this
+const WORDS = ['Research', 'Design', 'Build'];
+const WORD_MS = 520;
+const MIN_TIME_MS = 1500; // minimum showtime so the intro reads
+const MAX_WAIT_MS = 4500; // failsafe: never block longer than this
 
 interface LoadingScreenProps {
   onComplete: () => void;
@@ -13,9 +15,11 @@ interface LoadingScreenProps {
 
 /**
  * Entrance overlay: rotating words + 000→100 counter + accent progress bar.
- * The counter tracks REAL preloading of the background frame sequence
- * (blended with a minimum showtime), so when it hits 100 the scroll
- * experience is ready.
+ *
+ * It waits for the one thing the visitor sees first — the two hero layers —
+ * and nothing else. It used to wait for all 120 background frames (9.8 MB),
+ * which kept a phone on this screen for eleven seconds; the backdrop only
+ * shows after scrolling past the hero, so it now loads afterwards.
  */
 export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
   const [count, setCount] = useState(0);
@@ -25,25 +29,28 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
   const doneRef = useRef(false);
 
   useEffect(() => {
-    // Start preloading the frame sequence immediately — site start.
-    preloadFrames();
+    let heroDone = false;
+    heroReady().then(() => {
+      heroDone = true;
+      // The hero is in: the connection is free for the backdrop.
+      preloadFrames();
+    });
 
     if (reduce) {
-      const id = window.setTimeout(onComplete, 300);
+      const id = window.setTimeout(() => {
+        preloadFrames();
+        onComplete();
+      }, 300);
       return () => window.clearTimeout(id);
     }
 
-    let frameProgress = 0;
     let rafId = 0;
     const start = performance.now();
-
-    const unsubscribe = onFramesProgress((p) => {
-      frameProgress = p;
-    });
 
     const finish = () => {
       if (doneRef.current) return;
       doneRef.current = true;
+      preloadFrames();
       window.setTimeout(() => {
         setExiting(true);
         window.setTimeout(onComplete, 500);
@@ -53,11 +60,10 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
     const tick = (now: number) => {
       const elapsed = now - start;
       const timeProgress = Math.min(1, elapsed / MIN_TIME_MS);
-      // Blend: intro pacing + real asset loading.
-      const progress = Math.min(1, 0.35 * timeProgress + 0.65 * frameProgress);
-      setCount(Math.round(progress * 100));
+      // Time alone stops at 85: the last stretch belongs to the hero images.
+      setCount(Math.round((heroDone ? 1 : 0.85) * timeProgress * 100));
 
-      if ((timeProgress >= 1 && frameProgress >= 1) || elapsed >= MAX_WAIT_MS) {
+      if ((timeProgress >= 1 && heroDone) || elapsed >= MAX_WAIT_MS) {
         setCount(100);
         finish();
         return;
@@ -67,13 +73,12 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
     rafId = requestAnimationFrame(tick);
 
     const wordTimer = window.setInterval(() => {
-      setWordIndex((i) => (i + 1) % WORDS.length);
-    }, 900);
+      setWordIndex((i) => Math.min(i + 1, WORDS.length - 1));
+    }, WORD_MS);
 
     return () => {
       cancelAnimationFrame(rafId);
       window.clearInterval(wordTimer);
-      unsubscribe();
     };
   }, [onComplete, reduce]);
 

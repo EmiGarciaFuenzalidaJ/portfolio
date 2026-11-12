@@ -57,7 +57,7 @@ export const VisualWorkSection: React.FC = () => {
                 type="button"
                 onClick={() => setSelected(item)}
                 className={cn(
-                  'group relative block w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0A0D12] text-left transition-colors duration-300 hover:border-white/30',
+                  'group relative block w-full overflow-hidden rounded-2xl border border-white/10 bg-panel text-left transition-colors duration-300 hover:border-white/30',
                   aspectClass(index)
                 )}
               >
@@ -102,7 +102,7 @@ export const VisualWorkSection: React.FC = () => {
 
       {/* Detail modal */}
       <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
-        <DialogContent className="h-[88vh] max-h-[88vh] w-[96vw] max-w-6xl overflow-hidden rounded-2xl border border-white/15 bg-[#0A0D12] p-0">
+        <DialogContent className="h-[88vh] max-h-[88vh] w-[96vw] max-w-6xl overflow-hidden rounded-2xl border border-white/15 bg-panel p-0">
           <VisuallyHidden>
             <DialogTitle>{selected && (en ? selected.title : selected.titleEs)}</DialogTitle>
             <DialogDescription>

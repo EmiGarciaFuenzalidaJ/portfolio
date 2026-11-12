@@ -58,7 +58,7 @@ const ServiceColumn: React.FC<{ column: (typeof COLUMNS)[number]; start: number 
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <div className="bg-[#0A0D12] px-6 pb-2 pt-6 md:px-7">
+    <div className="bg-panel px-6 pb-2 pt-6 md:px-7">
       <p className="mb-4 font-mono text-label uppercase text-white/55">
         {String.fromCharCode(65 + COLUMNS.indexOf(column))} · {t(`services.col.${column.key}`)}
       </p>
@@ -115,7 +115,7 @@ const ToolTile: React.FC<{ name: string; icon: ToolIcon }> = ({ name, icon }) =>
     {/* Name on hover/focus for pointers; always shown on touch screens. */}
     <span
       aria-hidden="true"
-      className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md border border-white/15 bg-[#0A0D12] px-2 py-1 font-mono text-label normal-case tracking-normal text-white opacity-0 transition-opacity duration-150 group-hover/tool:opacity-100 group-focus-within/tool:opacity-100 [@media(hover:none)]:hidden"
+      className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md border border-white/15 bg-panel px-2 py-1 font-mono text-label normal-case tracking-normal text-white opacity-0 transition-opacity duration-150 group-hover/tool:opacity-100 group-focus-within/tool:opacity-100 [@media(hover:none)]:hidden"
     >
       {name}
     </span>

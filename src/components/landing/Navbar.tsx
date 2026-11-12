@@ -27,7 +27,7 @@ export const Navbar: React.FC = () => {
         aria-label="English"
         className={cn(
           'inline-flex min-h-8 min-w-8 items-center justify-center rounded-full transition-colors duration-200',
-          language === 'en' ? 'text-[#89AACC]' : 'text-white/55 hover:text-white'
+          language === 'en' ? 'text-brand' : 'text-white/55 hover:text-white'
         )}
       >
         EN
@@ -39,7 +39,7 @@ export const Navbar: React.FC = () => {
         aria-label="Español"
         className={cn(
           'inline-flex min-h-8 min-w-8 items-center justify-center rounded-full transition-colors duration-200',
-          language === 'es' ? 'text-[#89AACC]' : 'text-white/55 hover:text-white'
+          language === 'es' ? 'text-brand' : 'text-white/55 hover:text-white'
         )}
       >
         ES

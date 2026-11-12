@@ -8,11 +8,7 @@ import { BlurText } from './BlurText';
 import { SocialLinks } from './SocialLinks';
 import { EasterEgg } from './EasterEgg';
 import { T } from './motion';
-
-const BASE_IMAGE =
-  'https://res.cloudinary.com/drkpykb3l/image/upload/v1784206503/magnific_necesito-que-saques-el-ci_kLFpV3O16B_1_txhw7u.png';
-const REVEAL_IMAGE =
-  'https://res.cloudinary.com/drkpykb3l/image/upload/v1784206503/magnific_necesito-que-hagas-una-ve_XtV4GMOBfo_1_p0ljao.png';
+import { HERO_BASE, HERO_REVEAL, HERO_SIZES } from './heroImages';
 
 const RADIUS = 260;
 const STOPS =
@@ -97,7 +93,9 @@ export const HeroSpotlight: React.FC = () => {
       {/* Base layer (under) */}
       <div className="absolute inset-0 z-[15]">
         <img
-          src={BASE_IMAGE}
+          src={HERO_BASE.src}
+          srcSet={HERO_BASE.srcSet}
+          sizes={HERO_SIZES}
           alt=""
           className="h-full w-full object-cover object-center"
           draggable={false}
@@ -107,7 +105,9 @@ export const HeroSpotlight: React.FC = () => {
       {/* Reveal layer (over) — masked by the spotlight */}
       <div ref={revealRef} className="absolute inset-0 z-20" style={{ willChange: 'mask-image' }}>
         <img
-          src={REVEAL_IMAGE}
+          src={HERO_REVEAL.src}
+          srcSet={HERO_REVEAL.srcSet}
+          sizes={HERO_SIZES}
           alt=""
           className="h-full w-full object-cover object-center"
           draggable={false}
@@ -127,7 +127,7 @@ export const HeroSpotlight: React.FC = () => {
         transition={{ ...T.base, delay: 1 }}
       >
         <span className="liquid-glass inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-label uppercase tracking-[0.2em] text-white/90">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#89AACC]" />
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand" />
           {t('landing.available')}
         </span>
       </motion.div>

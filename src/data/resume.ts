@@ -37,7 +37,7 @@ export const getSummary = (language: Lang) => ({
 export const getResumeIntro = (language: Lang): string =>
   language === 'en'
     ? "With a foundation in game development and interactive media, I bring a multidisciplinary approach to UX/UI design. My experience spans digital products, simulations, and interfaces combining user centered thinking with technical execution. From immersive applications to functional UI systems, I aim to design experiences that are as intuitive as they are engaging."
-    : 'Con una base en desarrollo de videojuegos y medios interactivos, aporto un enfoque multidisciplinario al diseño UX/UI. Mi experiencia abarca productos digitales, simulaciones e interfaces combinando pensamiento centrado en el usuario con ejecución técnica.';
+    : 'Con una base en desarrollo de videojuegos y medios interactivos, aporto un enfoque multidisciplinario al diseño UX/UI. Mi experiencia abarca productos digitales, simulaciones e interfaces combinando pensamiento centrado en el usuario con ejecución técnica. Desde aplicaciones inmersivas hasta sistemas de UI funcionales, busco diseñar experiencias tan intuitivas como atractivas.';
 
 export const getEducation = (language: Lang): ResumeItemData[] => [
     {

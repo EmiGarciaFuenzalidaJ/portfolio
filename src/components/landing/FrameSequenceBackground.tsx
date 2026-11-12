@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { FRAME_COUNT, framesState, nearestLoadedFrame, preloadFrames } from './frames';
+import { FRAME_COUNT, framesState, nearestLoadedFrame, onFramesProgress, preloadFrames } from './frames';
 
 /**
  * Scroll distance (px) that advances the sequence by one frame. This keeps
@@ -40,6 +40,7 @@ export const FrameSequenceBackground: React.FC = () => {
     let smoothed = 0;
     let lastDrawn = -1;
     let rafId = 0;
+    let running = false;
 
     // Mobile browsers resize `window.innerHeight` by roughly 50–150px as
     // their address bar / toolbar collapse and expand DURING normal
@@ -161,10 +162,26 @@ export const FrameSequenceBackground: React.FC = () => {
           lastDrawn = v;
         }
       }
+      // Settled on the target: stop until the next scroll or the next frame
+      // that arrives. The loop used to run 60 times a second for the whole
+      // visit, drawing nothing.
+      if (Math.abs(target - smoothed) < 0.002) {
+        running = false;
+        return;
+      }
       rafId = requestAnimationFrame(tick);
     };
 
-    const onScroll = () => updateTarget();
+    const wake = () => {
+      if (running) return;
+      running = true;
+      rafId = requestAnimationFrame(tick);
+    };
+
+    const onScroll = () => {
+      updateTarget();
+      wake();
+    };
 
     resize();
     updateTarget();
@@ -174,9 +191,16 @@ export const FrameSequenceBackground: React.FC = () => {
     // toggling can't trigger a reallocation.
     window.addEventListener('resize', scheduleResize);
     window.addEventListener('scroll', onScroll, { passive: true });
-    rafId = requestAnimationFrame(tick);
+    wake();
+    // A frame that just arrived may be closer to the current position than
+    // the one on screen: redraw once.
+    const unsubscribe = onFramesProgress(() => {
+      lastDrawn = -1;
+      wake();
+    });
 
     return () => {
+      unsubscribe();
       cancelAnimationFrame(rafId);
       window.clearTimeout(resizeTimer);
       window.removeEventListener('resize', scheduleResize);

@@ -33,7 +33,7 @@ export const SocialLinks: React.FC<SocialLinksProps> = ({
           title={social.name}
           aria-label={social.name}
           className={cn(
-            'liquid-glass flex items-center justify-center rounded-full text-white/70 transition-colors duration-300 hover:text-[#89AACC] focus-visible:text-[#89AACC] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#89AACC]',
+            'liquid-glass flex items-center justify-center rounded-full text-white/70 transition-colors duration-300 hover:text-brand focus-visible:text-brand focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand',
             s.button
           )}
         >
