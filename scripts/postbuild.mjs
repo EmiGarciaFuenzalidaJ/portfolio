@@ -22,7 +22,8 @@ import { createServer } from 'vite';
 const require = createRequire(import.meta.url);
 const cv = require('./cv-data.cjs');
 
-const SITE = cv.CONTACT.portfolioHref; // ends with "/"
+const SITE = cv.CONTACT.portfolioHref; // the site root, ends with "/": the 3D intro, the PDFs and the text files live here
+const PAGE = `${SITE}portfolio/`; // the portfolio itself
 const NAME = cv.CONTACT.name;
 const EMAIL = cv.CONTACT.email;
 const TODAY = new Date().toISOString().slice(0, 10);
@@ -83,7 +84,7 @@ const metricsLabel = (p, lang) => {
   return (p.metricsKind === 'scope' ? L[lang].scope : L[lang].impact) + (source ? ` (${source})` : '');
 };
 const links = (lang) => [
-  [L[lang].portfolio, SITE],
+  [L[lang].portfolio, PAGE],
   [L[lang].profile, `${SITE}llms-full.txt`],
   [`${L[lang].cv} — English`, SITE + cv.en.fileName],
   [`${L[lang].cv} — Español`, SITE + cv.es.fileName],
@@ -167,7 +168,7 @@ const html = (lang) => {
 const staticHtml = `<div id="static-content">${html('en')}${html('es')}</div>`;
 
 // ── 4. JSON-LD
-const personId = `${SITE}#person`;
+const personId = `${PAGE}#person`;
 const credential = (line) => {
   const cut = line.lastIndexOf(' - ');
   const issuer = line.slice(cut + 3).replace(/,\s*\d{4}$/, '');
@@ -182,7 +183,7 @@ const graph = {
   '@context': 'https://schema.org',
   '@graph': [
     { '@type': 'WebSite', '@id': `${SITE}#website`, url: SITE, name: `${NAME} — Portfolio`, inLanguage: ['en', 'es'], author: { '@id': personId } },
-    { '@type': 'ProfilePage', '@id': `${SITE}#profile`, url: SITE, name: `${NAME} — ${cv.en.headline}`, dateModified: TODAY, isPartOf: { '@id': `${SITE}#website` }, mainEntity: { '@id': personId } },
+    { '@type': 'ProfilePage', '@id': `${PAGE}#profile`, url: PAGE, name: `${NAME} — ${cv.en.headline}`, dateModified: TODAY, isPartOf: { '@id': `${SITE}#website` }, mainEntity: { '@id': personId } },
     {
       '@type': 'Person',
       '@id': personId,
@@ -192,7 +193,7 @@ const graph = {
       description: cv.en.summary,
       email: `mailto:${EMAIL}`,
       telephone: cv.CONTACT.phoneHref.replace('tel:', ''),
-      url: SITE,
+      url: PAGE,
       image: `${SITE}og-image.jpg`,
       address: { '@type': 'PostalAddress', addressLocality: 'Godoy Cruz', addressRegion: 'Mendoza', addressCountry: 'AR' },
       knowsLanguage: ['es', 'en'],
@@ -212,7 +213,7 @@ const graph = {
     },
     {
       '@type': 'ItemList',
-      '@id': `${SITE}#case-studies`,
+      '@id': `${PAGE}#case-studies`,
       name: 'UX case studies',
       numberOfItems: projects.length,
       itemListElement: projects.map((p, i) => ({
@@ -239,11 +240,11 @@ const llms = [
   cv.en.summary, '',
   '## Profile', '',
   `- [Full profile](${SITE}llms-full.txt): experience, ${projects.length} case studies with problem, decisions and results, education, ${courses.length} courses and certifications, in English and Spanish`,
-  `- [Interactive portfolio](${SITE}): the same content with visuals and prototypes`,
+  `- [Interactive portfolio](${PAGE}): the same content with visuals and prototypes, reached through a short 3D intro at ${SITE}`,
   `- [CV in English (PDF)](${SITE}${cv.en.fileName})`,
   `- [CV en español (PDF)](${SITE}${cv.es.fileName})`, '',
   '## Featured projects', '',
-  ...featured.map((p) => `- [${p.title}](${p.url ?? `${SITE}#projects`}): ${p.oneLiner}`), '',
+  ...featured.map((p) => `- [${p.title}](${p.url ?? `${PAGE}#projects`}): ${p.oneLiner}`), '',
   '## Contact', '',
   `- Email: ${EMAIL}`,
   ...socialLinks.map((s) => `- [${s.name}](${s.href})`), '',
@@ -261,7 +262,7 @@ writeFileSync('dist/llms.txt', llms);
 writeFileSync('dist/llms-full.txt', `${markdown('en')}\n---\n\n${markdown('es')}`);
 writeFileSync(
   'dist/sitemap.xml',
-  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[SITE, SITE + cv.en.fileName, SITE + cv.es.fileName]
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[SITE, PAGE, SITE + cv.en.fileName, SITE + cv.es.fileName]
     .map((u) => `  <url><loc>${u}</loc><lastmod>${TODAY}</lastmod></url>`)
     .join('\n')}\n</urlset>\n`,
 );
